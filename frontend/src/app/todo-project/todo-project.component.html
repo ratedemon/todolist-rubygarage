@@ -1,0 +1,15 @@
+<ul class="main" [@myAnim]>
+  <li class="main__list card" *ngFor="let item of projects; let i= index">
+    <todo-project-header [item]="item" [projects]="projects"></todo-project-header>
+    <todo-projects-form [item]="item" [user]="user" [projects]="projects"></todo-projects-form>
+    <ul class="list__todos collection">
+      <li class="todos__task collection-item" *ngFor="let task of item.arrayTask">
+        <!--<todo-task [item]="item" [task]="task"></todo-task>-->
+        <todo-task [item]="item" [task]="task" [projects]="projects"></todo-task>
+      </li>
+    </ul>
+  </li>
+  <li class="main__list zero" *ngIf="projects?.length < 1">
+    Задач нет, придумайте их!
+  </li>
+</ul> 

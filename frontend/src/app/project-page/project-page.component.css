@@ -1,0 +1,14 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /*align-items: flex-start;*/
+  align-items: center;
+  align-self: stretch;
+  width: 100%;
+  margin-bottom: 1.5em;
+}
+todo-project{
+  width: 80%;
+  height: 100%;
+}

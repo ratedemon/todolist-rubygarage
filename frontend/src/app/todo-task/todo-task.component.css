@@ -1,0 +1,56 @@
+:host .checkbox{
+  font-size: 1.2em;
+  align-self: center;
+  width: 5%;
+  text-align: center;
+  color: gray;
+  cursor: pointer;
+}
+:host .checkbox:hover{
+  color: darkgray;
+}
+.task__title{
+  /*flex: 1;*/
+  width: 79.5%;
+  background: transparent;
+  border: none;
+  font-size: 1.2em;
+  margin: 0.15em .25em .15em .05em!important;
+  padding: .15em 0 .15em .2em;
+  height: 2em!important;
+  /*border-left: 1px solid pink;*/
+  color: #26a69a;
+  transition: all .35s ease;
+}
+.task__title:disabled{
+  color: #424242!important;
+}
+.done{
+  text-decoration: line-through;
+}
+.task__interaction{
+  width: 15.5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 1px solid lightgray;
+}
+.task__interaction > *{
+  font-size: 1.2em;
+  color: rgb(71, 72, 73);
+  transition: all .25s ease; 
+  width: calc(100%/3);
+  text-align: center;
+  cursor: pointer;
+}
+.task__interaction > *:hover{
+  color: gray;
+}
+.task__interaction > *:first-child{
+  border-right: 1px solid lightgray;
+  /*margin-left: 15%;*/
+}
+.task__interaction > *:last-child{
+  border-left: 1px solid lightgray;
+  /*margin-right: 15%;*/
+}

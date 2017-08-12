@@ -1,0 +1,74 @@
+.foot{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.foot__add{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*font-weight: bold;
+  background: #416ce2;
+  border: none;
+  font-size: 1.2em;
+  padding: .35em .45em .35em 0;
+  color: white;
+  cursor: pointer;
+  border-radius: .15em;
+  transition: all .3s ease;*/
+}
+.footer__add:hover, .footer__add:focus{
+  outline: none;
+  background: steelblue;
+}
+.footer__form{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  background: rgba(0,0,0,.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-100%);
+  transition: all .5s ease;
+}
+.action{
+  transform: translateY(0%);
+}
+.form__action{
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+  font-size: 1.2em;
+  min-width: 40vw;
+  max-width: 90vw;
+}
+.footer__form .clear{
+  position: absolute;
+  font-size: 2em;
+  top: 5%;
+  right: 5%;
+}
+.form__action .action__input, .form__action .action__submit{
+  padding: .15em .2em;
+}
+.form__action .action__submit{
+  background: #359942;
+  border: 1px solid green;
+  transition: all .3s ease;
+  color: white;
+  cursor: pointer;
+}
+.form__action .action__input{
+  margin: 0!important;
+  flex: 1;
+}
+.form__action .action__submit:focus,.form__action .action__submit:hover{
+  outline: none;
+  background: #44c455;
+}

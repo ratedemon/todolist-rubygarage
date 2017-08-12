@@ -1,0 +1,5 @@
+<form class="list__form card-content" #myForm1="ngForm" novalidate>
+  <i class="material-icons">add</i>
+  <input type="text" placeholder="Start typing here to create a task..." class="form__input" name="task" [(ngModel)]="task" #userTask>
+  <button type="submit" class="form__submit waves-effect waves-light btn" (click)="addTask(userTask, item)">Add Task</button>
+</form>

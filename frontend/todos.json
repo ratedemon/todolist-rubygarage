@@ -1,0 +1,28 @@
+[
+  {
+    "title": "LLL",
+    "arrayTasks":[
+      {"text": "Go to Shop", "done": false},
+      {"text": "Buy bear", "done": true},
+      {"text": "Kill Kennedy", "done": true},
+      {"text": "Liy", "done": false}
+    ]
+  },
+  {
+    "title": "Privet Medved",
+    "arrayTasks":[
+      {"text": "Posrat", "done": true},
+      {"text": "Kill Kennedy", "done": true},
+      {"text": "SSSSS", "done": false}
+    ]
+  },
+  {
+    "title": "Germany",
+    "arrayTasks":[
+      {"text": "Born", "done": true},
+      {"text": "Go to school", "done": true},
+      {"text": "Go to the university", "done": true},
+      {"text": "Liy", "done": false}
+    ]
+  }
+]

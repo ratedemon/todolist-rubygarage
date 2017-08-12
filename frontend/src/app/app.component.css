@@ -1,0 +1,45 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content:stretch;
+  min-height: 100vh;
+}
+.header{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+.header__title{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.header__name{
+  margin: 0;
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+.header__box{
+  display: flex;
+  justify-content: center;
+  align-items: stretch
+}
+.header__box .col:last-child{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.header__name a{
+  text-decoration: none;
+}
+.main{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}

@@ -1,0 +1,33 @@
+:host{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-self: stretch;
+}
+.main__box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form{
+  width: 100%;
+}
+.main__btn{
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+.main__btn .btn{
+  margin: 0 1em;
+}
+.main__login{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: .5em 0;
+}
+.main__login .btn{
+  width: 200px;
+  margin: 0 1em;
+}
