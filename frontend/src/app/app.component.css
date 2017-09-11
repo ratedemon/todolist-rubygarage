@@ -27,7 +27,8 @@
 .header__box{
   display: flex;
   justify-content: center;
-  align-items: stretch
+  align-items: stretch;
+  padding: .7em 0;
 }
 .header__box .col:last-child{
   display: flex;

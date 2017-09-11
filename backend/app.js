@@ -13,6 +13,8 @@ let port = 7000;
 //     res.setHeader('Access-Control-Allow-Credentials', true);
 //     next();
 // });
+app.use(express.static(__dirname + "/../frontend/dist"));
+console.log(__dirname + "/../frontend/dist");
 
 app.use(function(req, res, next) {
 //set headers to allow cross origin request.

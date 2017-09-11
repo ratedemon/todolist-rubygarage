@@ -2,8 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {HttpModule, Http} from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import {DataService} from './shared/data.service';
@@ -22,6 +25,7 @@ import { TodoFormComponent } from './todo-form/todo-form.component';
 import { TodoProjectsFormComponent } from './todo-projects-form/todo-projects-form.component';
 import { TodoTaskComponent } from './todo-task/todo-task.component';
 import { TodoProjectHeaderComponent } from './todo-project-header/todo-project-header.component';
+import {createTranslateLoader} from './shared/translateLoader';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,16 @@ import { TodoProjectHeaderComponent } from './todo-project-header/todo-project-h
     TodoProjectHeaderComponent
   ],
   imports: [
-    BrowserModule, AngularFireModule.initializeApp(firebaseConfig.firebase), AngularFireAuthModule, AngularFireDatabaseModule, RouterModule.forRoot(appRouter), FormsModule, HttpModule, BrowserAnimationsModule
+    BrowserModule, AngularFireModule.initializeApp(firebaseConfig.firebase), AngularFireAuthModule, AngularFireDatabaseModule, RouterModule.forRoot(appRouter), FormsModule, HttpModule, BrowserAnimationsModule, TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }), HttpClientModule
+  ],
+  exports:[
+    TranslateModule
   ],
   providers: [DataService, LoginService],
   bootstrap: [AppComponent]

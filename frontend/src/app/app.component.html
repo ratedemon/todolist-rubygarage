@@ -1,8 +1,8 @@
 <header class="header row card-panel light-blue darken-3 waves-effect waves-light">
   <div class="container header__box">
     <div class="col s8 offset-s2 l6 offset-l3 header__title">
-      <h1 class="header__name"><a class="white-text" routerLink="/">Simple todo list</a></h1>
-      <h6 class="header__description white-text" (click)="logout()">from ruby garage</h6>
+      <h1 class="header__name"><a class="white-text" routerLink="/">{{'Main.Title' | translate}}</a></h1>
+      <!--<h6 class="header__description white-text" (click)="logout()">from ruby garage</h6>-->
     </div>
     <div class="col s2 l3">
       <i class="material-icons" (click)="logout()">person</i>
@@ -15,7 +15,7 @@
 <footer class="footer page-footer darken-3 waves-effect waves-light">
   <div class="footer-copyright">
     <div class="container">
-    &copy; RubyGarage
+    &copy; {{'Main.Description' | translate}}
     <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
     </div>
   </div>
