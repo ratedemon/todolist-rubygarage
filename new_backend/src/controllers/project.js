@@ -12,7 +12,7 @@ export default class ProjectController{
                 name: ctx.request.body.name,
                 user_id: ctx.request.body.id
             });
-            return ctx.body = project;
+            return ctx.body = {project: project};
         }catch(e){
             console.log(e);
             return ctx.throw(400)

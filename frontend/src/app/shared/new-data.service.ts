@@ -23,6 +23,10 @@ export class NewDataService {
       this.projects.next(res);
     }, err=>console.log(err));
   }
+  createProject(name){
+    let body = JSON.stringify({name: name});
+    return this.http.post(`${this.url}/project`, body, {headers: this.createAuthorizationHeader()}).map(this.parseData);
+  }
   renameProject(project_id: number, name: string){
     let body = JSON.stringify({project_id: project_id, name: name});
     return this.http.put(`${this.url}/project`, body, {headers: this.createAuthorizationHeader()});
@@ -33,6 +37,17 @@ export class NewDataService {
   addTask(name: string, project_id: number){
     let body = JSON.stringify({name: name, project_id: project_id});
     return this.http.post(`${this.url}/task`, body, {headers: this.createAuthorizationHeader()});
+  }
+  toggleTask(project, task){
+    let body = JSON.stringify({status: !task.status, project_id: project.id, task_id: task.id});
+    return this.http.put(`${this.url}/task/status`, body, {headers: this.createAuthorizationHeader()});
+  }
+  removeTask(project, task){
+    return this.http.delete(`${this.url}/project/${project.id}/task/${task.id}`, {headers: this.createAuthorizationHeader()});
+  }
+  renameTask(project, task, name){
+    let body = JSON.stringify({name: name, task_id: task.id, project_id: project.id});
+    return this.http.put(`${this.url}/task`, body, {headers: this.createAuthorizationHeader()});
   }
   private createAuthorizationHeader(){
     let headers = new Headers();

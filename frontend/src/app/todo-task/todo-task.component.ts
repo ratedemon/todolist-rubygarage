@@ -3,49 +3,40 @@ import {Project} from '../shared/project';
 import {Task} from '../shared/task';
 import {DataService} from '../shared/data.service';
 import {Response} from '@angular/http';
+import {NewDataService} from '../shared/new-data.service';
 
 @Component({
   selector: 'todo-task',
   templateUrl: './todo-task.component.html',
   styleUrls: ['./todo-task.component.css']
 })
-export class TodoTaskComponent implements OnInit {
+export class TodoTaskComponent {
   @Input() item: Project;
-  @Input() projects: Project[];
-  @Input() task: Task;
-  user: any;
+  @Input() projects;
+  @Input() task;
   changed: boolean = false;
-  constructor(private dataService:DataService) { }
+  constructor(private dataService:DataService, private newDataService: NewDataService) { }
 
-  ngOnInit() {
-    this.dataService.initUser().subscribe(data=>{this.user=data;});
+  removeTask(project, task){
+    this.newDataService.removeTask(project, task).subscribe(res => {
+        let arr = this.searchTask(project, task);
+        this.projects[arr[0]].ProjectTasks.splice(arr[1],1);
+    },err=>console.log(err));
   }
-  removeTask(todo: Project, mission: Task){
-    this.dataService.removeTask(todo.title, mission.text, this.user).subscribe((data:Response)=>{
-      let arr = this.searchTask(todo, mission);
-      this.projects[arr[0]].arrayTask.splice(arr[1],1);
-    }, (err)=>{
-      console.log(err);
-    });
+  toggle(project: Project, task:Task, input: HTMLInputElement){
+    this.newDataService.toggleTask(project, task).subscribe(res => {
+      this.task.status = !this.task.status;
+    }, err=>console.log(err));
+  }
+  rewriteTask(project: Project, task: Task, input: HTMLInputElement){
+    this.newDataService.renameTask(project, task, input.value).subscribe(res=>{
+      this.changed = !this.changed;
+    }, err => console.log(err));
   }
   private searchTask(todo, mission){
     let indexTodo = this.projects.indexOf(todo);
-    let indexTask = this.projects[indexTodo].arrayTask.indexOf(mission);
+    let indexTask = this.projects[indexTodo].ProjectTasks.indexOf(mission);
     let arr = [indexTodo, indexTask];
     return arr;
-  }
-  toggle(project: Project, task:Task, input: HTMLInputElement){
-    this.dataService.toggleTask(project.title, input.value, this.user).subscribe(data=>{
-      task.done = !task.done;
-    }, (err)=>{
-      console.log('ERR: ' + err);
-    })
-  }
-  rewriteTask(project: Project, task: Task, input: HTMLInputElement){
-    this.dataService.rewriteTask(project, task, input.value, this.user).subscribe(data=>{
-      this.changed = !this.changed;
-    },(err)=>{
-      console.log(err);
-    })
   }
 }

@@ -23,9 +23,13 @@ export default class TaskController{
         const project = await TaskController.verifyProject(ctx);
         if(!project) return ctx.throw(403);
         try{
-            const task = await Task.create({
+            const task = await Task.update({
                 name: ctx.request.body.name,
-                project_id: ctx.request.body.project_id
+            },{
+                where: {
+                    project_id: ctx.request.body.project_id,
+                    id: ctx.request.body.task_id
+                }
             });
             ctx.body = task;
         }catch(e){
@@ -35,6 +39,9 @@ export default class TaskController{
     }
     static async delete(ctx){
         const project = await TaskController.verifyProject(ctx);
+        // const project = await Project.findOne({
+        //     where:
+        // });
         if(!project) return ctx.throw(403);
         try{
             const task = await Task.destroy({
@@ -100,7 +107,7 @@ export default class TaskController{
     static async verifyProject(ctx){
         const project = await Project.findOne({
             where: {
-                id: ctx.request.body.project_id,
+                id: ctx.request.body.project_id || ctx.params.project_id,
                 user_id: ctx.request.body.id
             }
         });

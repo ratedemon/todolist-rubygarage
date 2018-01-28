@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import {Project} from '../shared/project';
 import {formAnim} from '../shared/animations'
 import {DataService} from '../shared/data.service';
+import {NewDataService} from '../shared/new-data.service';
 
 @Component({
   selector: 'todo-form',
@@ -9,28 +10,22 @@ import {DataService} from '../shared/data.service';
   styleUrls: ['./todo-form.component.css'],
   animations: [formAnim]
 })
-export class TodoFormComponent implements OnInit {
-  @Input() projects: Project[];
-  @Input() user;
+export class TodoFormComponent{
+  @Input() projects;
   private title = "";
   private formActive: boolean = false;
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private newDataService: NewDataService) { }
 
-  ngOnInit() {
-  }
   show(){
     this.formActive = !this.formActive;
   }
-  addTitle(title: HTMLInputElement){
-    if(!title.value.trim()){
+  addTitle(input: HTMLInputElement){
+    if(!input.value.trim()){
       return;
     }
-    this.dataService.createProject(title.value, this.user).subscribe(data=>{
-      this.projects.push({title: title.value, arrayTask: []});
-      this.title = "";
+    this.newDataService.createProject(input.value).subscribe(res=>{
+      this.projects.unshift(res.project);
       this.show();
-    }, (err)=>{
-      console.log(err);
-    })
+    }, err => console.log(err));
   }
 }
