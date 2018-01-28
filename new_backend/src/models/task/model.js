@@ -34,4 +34,7 @@ const Task = db.define('tasks', {
     }
 });
 
+// Task.belongsToMany(Project, {as: "projects", through: "project_tasks", foreignKey: 'project_id', otherKey: "task_id"});
+// Task.belongsTo(Project);
+
 export default Task;

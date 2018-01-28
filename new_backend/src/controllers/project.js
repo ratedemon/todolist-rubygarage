@@ -2,6 +2,7 @@
  * Created by rated on 28.01.2018.
  */
 import Project from '../models/project/model';
+import Task from '../models/task/model';
 
 export default class ProjectController{
     static async create(ctx){
@@ -47,5 +48,23 @@ export default class ProjectController{
             console.log(e);
             return ctx.throw(403);
         }
+    }
+    static async getProjectsWithTasks(ctx){
+        const projects = await Project.findAll({
+            where: {
+                user_id: ctx.request.body.id
+            },
+            include: [
+                {
+                    model: Task,
+                    as: 'ProjectTasks'
+                }
+            ],
+            order: [
+                ['id', 'DESC']
+            ]
+        });
+        console.log(projects);
+        ctx.body = projects;
     }
 }

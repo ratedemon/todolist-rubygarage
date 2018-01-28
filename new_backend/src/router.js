@@ -18,6 +18,7 @@ router.use(koaBody());
 router.post('/register', UserController.register);
 router.post('/login', UserController.login);
 
+router.get('/projects', verifyAuth, ProjectController.getProjectsWithTasks);
 router.post('/project', verifyAuth, ProjectController.create);
 router.put('/project', verifyAuth, ProjectController.update);
 router.delete('/project/:id', verifyAuth, ProjectController.delete);

@@ -26,5 +26,6 @@ const Project = db.define('projects', {
 });
 
 Project.hasMany(Task, {foreignKey: 'project_id', onDelete: 'cascade', as: 'ProjectTasks'});
+// Project.belongsToMany(Task, {as: "tasks", through: "project_tasks", foreignKey: 'task_id', otherKey: "project_id"});
 
 export default Project;
