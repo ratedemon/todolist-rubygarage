@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Project} from '../shared/project';
 import {Task} from '../shared/task';
-import {DataService} from '../shared/data.service';
 import {Response} from '@angular/http';
 import {NewDataService} from '../shared/new-data.service';
 
@@ -15,7 +14,7 @@ export class TodoTaskComponent {
   @Input() projects;
   @Input() task;
   changed: boolean = false;
-  constructor(private dataService:DataService, private newDataService: NewDataService) { }
+  constructor(private newDataService: NewDataService) { }
 
   removeTask(project, task){
     this.newDataService.removeTask(project, task).subscribe(res => {

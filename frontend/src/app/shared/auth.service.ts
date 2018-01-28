@@ -6,7 +6,6 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
-  private token = localStorage.getItem('session_token') || null;
   private url = environment.apiUrl;
   constructor(private http: Http) { }
   login(email: string, password: string){
@@ -20,6 +19,12 @@ export class AuthService {
       this.createAuthorizationHeader(headers);
       let body = JSON.stringify({'name': name,'email' : email, 'password' : password});
       return this.http.post(`${this.url}/register`, body, {headers: headers});
+  }
+  logout(){
+      return new Promise((resolve, reject) => {
+        localStorage.clear();
+        resolve(true);
+      });
   }
   private createAuthorizationHeader(headers: Headers){
       headers.append("Content-Type", "application/json" );

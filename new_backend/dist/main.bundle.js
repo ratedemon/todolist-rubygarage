@@ -43,7 +43,7 @@ module.exports = "<header class=\"header row card-panel light-blue darken-3 wave
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_login_service__ = __webpack_require__("../../../../../src/app/shared/login.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_auth_service__ = __webpack_require__("../../../../../src/app/shared/auth.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__("../../../../@ngx-translate/core/index.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
@@ -61,10 +61,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var AppComponent = (function () {
-    function AppComponent(loginService, router, translate) {
-        this.loginService = loginService;
+    function AppComponent(router, translate, authService) {
         this.router = router;
         this.translate = translate;
+        this.authService = authService;
         translate.addLangs(['en', 'ru']);
         translate.setDefaultLang('en');
         var browserLang = translate.getBrowserLang();
@@ -72,7 +72,7 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.logout = function () {
         var _this = this;
-        this.loginService.logout().then(function (data) {
+        this.authService.logout().then(function (data) {
             _this.router.navigate(['']);
         });
     };
@@ -84,7 +84,7 @@ AppComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/app.component.html"),
         styles: [__webpack_require__("../../../../../src/app/app.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_login_service__["a" /* LoginService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__shared_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_auth_service__["a" /* AuthService */]) === "function" && _c || Object])
 ], AppComponent);
 
 var _a, _b, _c;
@@ -105,22 +105,18 @@ var _a, _b, _c;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__ = __webpack_require__("../../../../@ngx-translate/core/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_common_http__ = __webpack_require__("../../../common/@angular/common/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__shared_data_service__ = __webpack_require__("../../../../../src/app/shared/data.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__shared_login_service__ = __webpack_require__("../../../../../src/app/shared/login.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_angularfire2__ = __webpack_require__("../../../../angularfire2/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_angularfire2_database__ = __webpack_require__("../../../../angularfire2/database.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_angularfire2_auth__ = __webpack_require__("../../../../angularfire2/auth.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__login_page_login_page_component__ = __webpack_require__("../../../../../src/app/login-page/login-page.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__register_page_register_page_component__ = __webpack_require__("../../../../../src/app/register-page/register-page.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__shared_firebase_config__ = __webpack_require__("../../../../../src/app/shared/firebase.config.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__shared_routes__ = __webpack_require__("../../../../../src/app/shared/routes.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__project_page_project_page_component__ = __webpack_require__("../../../../../src/app/project-page/project-page.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__todo_project_todo_project_component__ = __webpack_require__("../../../../../src/app/todo-project/todo-project.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__todo_form_todo_form_component__ = __webpack_require__("../../../../../src/app/todo-form/todo-form.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__todo_projects_form_todo_projects_form_component__ = __webpack_require__("../../../../../src/app/todo-projects-form/todo-projects-form.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__todo_task_todo_task_component__ = __webpack_require__("../../../../../src/app/todo-task/todo-task.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__todo_project_header_todo_project_header_component__ = __webpack_require__("../../../../../src/app/todo-project-header/todo-project-header.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__shared_translateLoader__ = __webpack_require__("../../../../../src/app/shared/translateLoader.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__shared_auth_service__ = __webpack_require__("../../../../../src/app/shared/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__shared_new_data_service__ = __webpack_require__("../../../../../src/app/shared/new-data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__login_page_login_page_component__ = __webpack_require__("../../../../../src/app/login-page/login-page.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__register_page_register_page_component__ = __webpack_require__("../../../../../src/app/register-page/register-page.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__shared_routes__ = __webpack_require__("../../../../../src/app/shared/routes.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__project_page_project_page_component__ = __webpack_require__("../../../../../src/app/project-page/project-page.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__todo_project_todo_project_component__ = __webpack_require__("../../../../../src/app/todo-project/todo-project.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__todo_form_todo_form_component__ = __webpack_require__("../../../../../src/app/todo-form/todo-form.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__todo_projects_form_todo_projects_form_component__ = __webpack_require__("../../../../../src/app/todo-projects-form/todo-projects-form.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__todo_task_todo_task_component__ = __webpack_require__("../../../../../src/app/todo-task/todo-task.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__todo_project_header_todo_project_header_component__ = __webpack_require__("../../../../../src/app/todo-project-header/todo-project-header.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__shared_translateLoader__ = __webpack_require__("../../../../../src/app/shared/translateLoader.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -128,10 +124,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
-
-
-
 
 
 
@@ -162,20 +154,20 @@ AppModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
         declarations: [
             __WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_14__login_page_login_page_component__["a" /* LoginPageComponent */],
-            __WEBPACK_IMPORTED_MODULE_15__register_page_register_page_component__["a" /* RegisterPageComponent */],
-            __WEBPACK_IMPORTED_MODULE_18__project_page_project_page_component__["a" /* ProjectPageComponent */],
-            __WEBPACK_IMPORTED_MODULE_19__todo_project_todo_project_component__["a" /* TodoProjectComponent */],
-            __WEBPACK_IMPORTED_MODULE_20__todo_form_todo_form_component__["a" /* TodoFormComponent */],
-            __WEBPACK_IMPORTED_MODULE_21__todo_projects_form_todo_projects_form_component__["a" /* TodoProjectsFormComponent */],
-            __WEBPACK_IMPORTED_MODULE_22__todo_task_todo_task_component__["a" /* TodoTaskComponent */],
-            __WEBPACK_IMPORTED_MODULE_23__todo_project_header_todo_project_header_component__["a" /* TodoProjectHeaderComponent */]
+            __WEBPACK_IMPORTED_MODULE_11__login_page_login_page_component__["a" /* LoginPageComponent */],
+            __WEBPACK_IMPORTED_MODULE_12__register_page_register_page_component__["a" /* RegisterPageComponent */],
+            __WEBPACK_IMPORTED_MODULE_14__project_page_project_page_component__["a" /* ProjectPageComponent */],
+            __WEBPACK_IMPORTED_MODULE_15__todo_project_todo_project_component__["a" /* TodoProjectComponent */],
+            __WEBPACK_IMPORTED_MODULE_16__todo_form_todo_form_component__["a" /* TodoFormComponent */],
+            __WEBPACK_IMPORTED_MODULE_17__todo_projects_form_todo_projects_form_component__["a" /* TodoProjectsFormComponent */],
+            __WEBPACK_IMPORTED_MODULE_18__todo_task_todo_task_component__["a" /* TodoTaskComponent */],
+            __WEBPACK_IMPORTED_MODULE_19__todo_project_header_todo_project_header_component__["a" /* TodoProjectHeaderComponent */]
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */], __WEBPACK_IMPORTED_MODULE_11_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_16__shared_firebase_config__["a" /* firebaseConfig */].firebase), __WEBPACK_IMPORTED_MODULE_13_angularfire2_auth__["a" /* AngularFireAuthModule */], __WEBPACK_IMPORTED_MODULE_12_angularfire2_database__["a" /* AngularFireDatabaseModule */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* RouterModule */].forRoot(__WEBPACK_IMPORTED_MODULE_17__shared_routes__["a" /* appRouter */]), __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormsModule */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */], __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__["a" /* TranslateModule */].forRoot({
+            __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* RouterModule */].forRoot(__WEBPACK_IMPORTED_MODULE_13__shared_routes__["a" /* appRouter */]), __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormsModule */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */], __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__["a" /* TranslateModule */].forRoot({
                 loader: {
                     provide: __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__["b" /* TranslateLoader */],
-                    useFactory: (__WEBPACK_IMPORTED_MODULE_24__shared_translateLoader__["a" /* createTranslateLoader */]),
+                    useFactory: (__WEBPACK_IMPORTED_MODULE_20__shared_translateLoader__["a" /* createTranslateLoader */]),
                     deps: [__WEBPACK_IMPORTED_MODULE_7__angular_common_http__["a" /* HttpClient */]]
                 }
             }), __WEBPACK_IMPORTED_MODULE_7__angular_common_http__["b" /* HttpClientModule */]
@@ -183,7 +175,7 @@ AppModule = __decorate([
         exports: [
             __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__["a" /* TranslateModule */]
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_9__shared_data_service__["a" /* DataService */], __WEBPACK_IMPORTED_MODULE_10__shared_login_service__["a" /* LoginService */]],
+        providers: [__WEBPACK_IMPORTED_MODULE_9__shared_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_10__shared_new_data_service__["a" /* NewDataService */]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
@@ -200,7 +192,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ":host{\r\n  width: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -ms-flex-item-align: stretch;\r\n      align-self: stretch;\r\n}\r\n.main__box{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n.form{\r\n  width: 100%;\r\n}\r\n.main__btn{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center\r\n}\r\n.main__btn .btn{\r\n  margin: 0 1em;\r\n}\r\n.main__login{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  margin: .5em 0;\r\n}\r\n.main__login .btn{\r\n  width: 200px;\r\n  margin: 0 1em;\r\n}", ""]);
+exports.push([module.i, ":host{\r\n  width: 100%;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -ms-flex-item-align: stretch;\r\n      align-self: stretch;\r\n}\r\n.main__box{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n.form{\r\n  width: 100%;\r\n}\r\n.main__btn{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center\r\n}\r\n.main__btn .btn{\r\n  margin: 0 1em;\r\n}\r\n.main__login{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  margin: .5em 0;\r\n}\r\n.main__login .btn{\r\n  width: 200px;\r\n  margin: 0 1em;\r\n}\r\n.main__box .card-panel{\r\n  position: relative;\r\n}\r\n.main__box .loader{\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background: rgba(209, 209, 209, .35);\r\n  z-index: 10;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}", ""]);
 
 // exports
 
@@ -213,7 +205,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/login-page/login-page.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container main__box\">\n    <h4 class=\"col s12 main__title\">\n      Login Page\n    </h4>\n    <form class=\"col s12 form\" #myForm=\"ngForm\" novalidate (ngSubmit)=\"loginWithEmailAndPassword(email, password)\">\n      <div class=\"row\">\n        <div class=\"input-field col s10 offset-s1 l6 offset-l3\">\n          <input id=\"email\" type=\"email\" [(ngModel)]=\"email\" required name=\"email\" class=\"validate\">\n          <label for=\"email\" data-error=\"wrong\" data-success=\"right\">Email</label>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"input-field col s10 offset-s1 l6 offset-l3\">\n          <input id=\"password\" type=\"password\" class=\"validate\" [(ngModel)]=\"password\" required name=\"password\">\n          <label for=\"password\">Password</label>\n        </div>\n      </div>\n      <div class=\"row main__btn\">\n         <button class=\"btn waves-effect waves-light\" type=\"submit\" name=\"action\" [disabled]=\"myForm.invalid || password.length<6\">Sign\n          <i class=\"material-icons right\">send</i>\n        </button>\n        <a routerLink=\"/register\" class=\"btn waves-effect waves-light register__btn light-green darken-3\">Register\n        <i class=\"material-icons right\">send</i>\n        </a>\n      </div>\n    </form>\n    <h5 class=\"col s12 main__title\">\n      Another type\n    </h5>\n    <div class=\"col col s10 offset-s1 l6 offset-l3 main__login\">\n      <button class=\"btn waves-effect waves-light light-blue darken-3\" type=\"submit\" name=\"action\" (click)=\"loginFacebook()\">Facebook\n        <i class=\"material-icons right\">send</i>\n      </button>\n      <button class=\"btn waves-effect waves-light red darken-3\" type=\"submit\" name=\"action\" (click)=\"loginGoogle()\">Google+\n        <i class=\"material-icons right\">send</i>\n      </button>\n    </div>\n    <div class=\"col col s10 offset-s1 l6 offset-l3 main__login\">\n      <button class=\"btn waves-effect waves-light grey darken-3\" type=\"submit\" name=\"action\" (click)=\"loginGithub()\">Github\n        <i class=\"material-icons right\">send</i>\n      </button>\n      <button class=\"btn waves-effect waves-light blue darken-3\" type=\"submit\" name=\"action\" (click)=\"loginTwitter()\">Twitter\n        <i class=\"material-icons right\">send</i>\n      </button>\n    </div>\n  </div>"
+module.exports = "<div class=\"container main__box\">\n    <div class=\"card-panel hoverable\">\n        <div class=\"row\">\n            <h4 class=\"col s12 main__title\">\n              Login Page\n            </h4>\n            <form class=\"col s12 form\" #myForm=\"ngForm\" novalidate (ngSubmit)=\"loginWithEmailAndPassword(email, password)\">\n              <div class=\"row\">\n                <div class=\"input-field col s12\">\n                  <input id=\"email\" type=\"email\" [(ngModel)]=\"email\" required name=\"email\" class=\"validate\">\n                  <label for=\"email\" data-error=\"wrong\" data-success=\"right\">Email</label>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"input-field col s12\">\n                  <input id=\"password\" type=\"password\" class=\"validate\" [(ngModel)]=\"password\" required name=\"password\">\n                  <label for=\"password\">Password</label>\n                </div>\n              </div>\n              <div class=\"row main__btn\">\n                 <button class=\"btn waves-effect waves-light\" type=\"submit\" name=\"action\" [disabled]=\"myForm.invalid || password.length<6\">Sign\n                  <i class=\"material-icons right\">send</i>\n                </button>\n                <a routerLink=\"/register\" class=\"btn waves-effect waves-light register__btn light-green darken-3\">Register\n                <i class=\"material-icons right\">send</i>\n                </a>\n              </div>\n            </form>\n        </div>\n        <div class=\"loader\" *ngIf=\"isSending\">\n            <div class=\"preloader-wrapper big active\">\n                <div class=\"spinner-layer spinner-blue\">\n                    <div class=\"circle-clipper left\">\n                        <div class=\"circle\"></div>\n                    </div><div class=\"gap-patch\">\n                    <div class=\"circle\"></div>\n                </div><div class=\"circle-clipper right\">\n                    <div class=\"circle\"></div>\n                </div>\n                </div>\n\n                <div class=\"spinner-layer spinner-red\">\n                    <div class=\"circle-clipper left\">\n                        <div class=\"circle\"></div>\n                    </div><div class=\"gap-patch\">\n                    <div class=\"circle\"></div>\n                </div><div class=\"circle-clipper right\">\n                    <div class=\"circle\"></div>\n                </div>\n                </div>\n\n                <div class=\"spinner-layer spinner-yellow\">\n                    <div class=\"circle-clipper left\">\n                        <div class=\"circle\"></div>\n                    </div><div class=\"gap-patch\">\n                    <div class=\"circle\"></div>\n                </div><div class=\"circle-clipper right\">\n                    <div class=\"circle\"></div>\n                </div>\n                </div>\n\n                <div class=\"spinner-layer spinner-green\">\n                    <div class=\"circle-clipper left\">\n                        <div class=\"circle\"></div>\n                    </div><div class=\"gap-patch\">\n                    <div class=\"circle\"></div>\n                </div><div class=\"circle-clipper right\">\n                    <div class=\"circle\"></div>\n                </div>\n                </div>\n            </div>\n        </div>\n    </div>\n  </div>"
 
 /***/ }),
 
@@ -222,8 +214,8 @@ module.exports = "<div class=\"container main__box\">\n    <h4 class=\"col s12 m
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_data_service__ = __webpack_require__("../../../../../src/app/shared/data.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_login_service__ = __webpack_require__("../../../../../src/app/shared/login.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_auth_service__ = __webpack_require__("../../../../../src/app/shared/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_new_data_service__ = __webpack_require__("../../../../../src/app/shared/new-data.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPageComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -240,37 +232,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var LoginPageComponent = (function () {
-    function LoginPageComponent(dataService, loginService, router) {
-        this.dataService = dataService;
-        this.loginService = loginService;
+    function LoginPageComponent(router, authService, newDataService) {
         this.router = router;
+        this.authService = authService;
+        this.newDataService = newDataService;
         this.email = "";
         this.password = '';
+        this.isSending = false;
     }
-    LoginPageComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.dataService.initUser().subscribe(function (data) {
-            _this.user = data;
-            console.log(_this.user);
-            if (_this.user !== null) {
-                _this.navToProjects();
-            }
-        });
-    };
-    LoginPageComponent.prototype.loginGoogle = function () {
-        this.loginService.loginGoogle();
-    };
-    LoginPageComponent.prototype.loginFacebook = function () {
-        this.loginService.loginFacebook();
-    };
-    LoginPageComponent.prototype.loginTwitter = function () {
-        this.loginService.loginTwitter();
-    };
-    LoginPageComponent.prototype.loginGithub = function () {
-        this.loginService.loginGithub();
-    };
     LoginPageComponent.prototype.loginWithEmailAndPassword = function (mail, pass) {
-        this.loginService.loginEmailAndPassword(mail, pass);
+        var _this = this;
+        this.isSending = true;
+        this.authService.login(mail, pass).subscribe(function (res) {
+            _this.isSending = false;
+            var token = res.json().token;
+            console.log(token);
+            _this.newDataService.setToken(token);
+            _this.navToProjects();
+        }, function (err) { return console.log(err); });
     };
     LoginPageComponent.prototype.navToProjects = function () {
         this.router.navigate(['projects']);
@@ -283,7 +262,7 @@ LoginPageComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/login-page/login-page.component.html"),
         styles: [__webpack_require__("../../../../../src/app/login-page/login-page.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_data_service__["a" /* DataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_data_service__["a" /* DataService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__shared_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_login_service__["a" /* LoginService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__shared_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_auth_service__["a" /* AuthService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__shared_new_data_service__["a" /* NewDataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_new_data_service__["a" /* NewDataService */]) === "function" && _c || Object])
 ], LoginPageComponent);
 
 var _a, _b, _c;
@@ -299,7 +278,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ":host{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  /*align-items: flex-start;*/\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -ms-flex-item-align: stretch;\r\n      align-self: stretch;\r\n  width: 100%;\r\n  margin-bottom: 1.5em;\r\n}\r\ntodo-project{\r\n  width: 80%;\r\n  height: 100%;\r\n}", ""]);
+exports.push([module.i, ":host{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  /*align-items: flex-start;*/\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  -ms-flex-item-align: stretch;\r\n      align-self: stretch;\r\n  width: 100%;\r\n  margin-bottom: 1.5em;\r\n}\r\ntodo-project{\r\n  width: 80%;\r\n  /*height: 100%;*/\r\n}", ""]);
 
 // exports
 
@@ -312,7 +291,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/project-page/project-page.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<todo-project [(projects)]=\"projects\"></todo-project>\n<todo-form [projects]=\"projects\" [user]=\"user\"></todo-form>"
+module.exports = "<todo-project [(projects)]=\"projects\"></todo-project>\n<todo-form [projects]=\"projects\"></todo-form>"
 
 /***/ }),
 
@@ -321,8 +300,8 @@ module.exports = "<todo-project [(projects)]=\"projects\"></todo-project>\n<todo
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_data_service__ = __webpack_require__("../../../../../src/app/shared/data.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_new_data_service__ = __webpack_require__("../../../../../src/app/shared/new-data.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProjectPageComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -337,21 +316,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var ProjectPageComponent = (function () {
-    function ProjectPageComponent(dataService, router) {
-        this.dataService = dataService;
+    function ProjectPageComponent(router, newDataService) {
+        var _this = this;
         this.router = router;
+        this.newDataService = newDataService;
+        // projects: Project[] = [];
         this.projects = [];
+        this.newDataService.projectList.subscribe(function (res) {
+            _this.projects = res;
+        });
     }
     ProjectPageComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.dataService.initUser().subscribe(function (data) {
-            _this.user = data;
-            console.log(_this.user);
-            if (!_this.user) {
-                return _this.router.navigate(['/']);
-            }
-            _this.dataService.getProjects(_this.user).subscribe(function (data) { return _this.projects = data; }, function (err) { return console.log(err); });
-        });
+        this.newDataService.getProjects();
     };
     return ProjectPageComponent;
 }());
@@ -361,7 +337,7 @@ ProjectPageComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/project-page/project-page.component.html"),
         styles: [__webpack_require__("../../../../../src/app/project-page/project-page.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_data_service__["a" /* DataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_data_service__["a" /* DataService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__shared_new_data_service__["a" /* NewDataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_new_data_service__["a" /* NewDataService */]) === "function" && _b || Object])
 ], ProjectPageComponent);
 
 var _a, _b;
@@ -377,7 +353,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ":host{\r\n  width: 100%;\r\n  -ms-flex-item-align: stretch;\r\n      -ms-grid-row-align: stretch;\r\n      align-self: stretch;\r\n}\r\n.main__box, .main__btn{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n.main__box{\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n}\r\n.main__box > *{\r\n  width: 100%;\r\n}\r\n.main__title{\r\n  text-align: center;\r\n}", ""]);
+exports.push([module.i, ":host{\r\n  width: 100%;\r\n  -ms-flex-item-align: stretch;\r\n      -ms-grid-row-align: stretch;\r\n      align-self: stretch;\r\n}\r\n.main__box, .main__btn{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n.main__btn{\r\n  -webkit-box-pack: end;\r\n      -ms-flex-pack: end;\r\n          justify-content: flex-end;\r\n}\r\n.main__box{\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n          flex-direction: column;\r\n}\r\n.box_center{\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}\r\n.box_center > div{\r\n  margin: 0;\r\n}\r\n.main__box > *{\r\n  width: 100%;\r\n}\r\n.main__title{\r\n  text-align: center;\r\n}\r\n.main__box .card-panel{\r\n  position: relative;\r\n}\r\n.main__box .loader{\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background: rgba(209, 209, 209, .35);\r\n  z-index: 10;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n}", ""]);
 
 // exports
 
@@ -390,7 +366,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/register-page/register-page.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container main__box\">\n    <h4 class=\"col s12 main__title\">\n      Register\n    </h4>\n    <form class=\"col s12 form\" #myForm=\"ngForm\" novalidate (ngSubmit)=\"loginForm(fullName,email, password)\" enctype=\"multipart/form-data\">\n      <div class=\"row\">\n        <div class=\"input-field col col s12 l6 offset-l3\">\n          <input id=\"fullname\" type=\"text\" [(ngModel)]=\"fullName\" required name=\"fullname\" class=\"validate\">\n          <label for=\"fullname\" data-error=\"wrong\" data-success=\"right\">Full Name</label>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"input-field col col s12 l6 offset-l3\">\n          <input id=\"email\" type=\"email\" [(ngModel)]=\"email\" required name=\"email\" class=\"validate\">\n          <label for=\"email\" data-error=\"wrong\" data-success=\"right\">Email</label>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"input-field col col s12 l6 offset-l3\">\n          <input id=\"password\" type=\"password\" class=\"validate\" [(ngModel)]=\"password\" required name=\"password\">\n          <label for=\"password\">Password</label>\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"input-field col col s12 l6 offset-l3\">\n          <input id=\"repeatPassword\" type=\"password\" class=\"validate\" [(ngModel)]=\"repeatPassword\" required name=\"repeatPassword\" >\n          <label for=\"repeatPassword\">Repeat Your Password</label>\n        </div>\n      </div>\n      <div class=\"row main__btn\">\n         <button class=\"btn waves-effect waves-light\" type=\"submit\" name=\"action\" [disabled]=\"password !== repeatPassword || myForm.invalid\">Send\n          <i class=\"material-icons right\">send</i>\n        </button>\n      </div>\n    </form>\n</div>"
+module.exports = "<div class=\"container main__box\">\n    <div class=\"row box_center\">\n        <div class=\"col s12 m8 l6\">\n            <div class=\"card-panel hoverable\">\n                <div class=\"row\">\n                    <h4 class=\"col s12 main__title\">\n                        Register\n                    </h4>\n                    <form class=\"col s12 form\" #myForm=\"ngForm\" novalidate\n                          (ngSubmit)=\"loginForm(fullName,email, password)\" enctype=\"multipart/form-data\">\n                        <div class=\"row\">\n                            <div class=\"input-field col col s12\">\n                                <input id=\"fullname\" type=\"text\" [(ngModel)]=\"fullName\" required name=\"fullname\"\n                                       class=\"validate\">\n                                <label for=\"fullname\" data-error=\"wrong\" data-success=\"right\">Full Name</label>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"input-field col col s12\">\n                                <input id=\"email\" type=\"email\" [(ngModel)]=\"email\" required name=\"email\"\n                                       class=\"validate\">\n                                <label for=\"email\" data-error=\"wrong\" data-success=\"right\">Email</label>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"input-field col col s12\">\n                                <input id=\"password\" type=\"password\" class=\"validate\" [(ngModel)]=\"password\" required\n                                       name=\"password\">\n                                <label for=\"password\">Password</label>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"input-field col col s12\">\n                                <input id=\"repeatPassword\" type=\"password\" class=\"validate\" [(ngModel)]=\"repeatPassword\"\n                                       required name=\"repeatPassword\">\n                                <label for=\"repeatPassword\">Repeat Your Password</label>\n                            </div>\n                        </div>\n                        <div *ngIf=\"status\" class=\"center-align\">\n                            <span [ngClass]=\"{'green-text':status == 1, 'red-text': status==2}\">{{message}}</span>\n                        </div>\n                        <div class=\"row main__btn\">\n                            <button class=\"btn waves-effect waves-light\" type=\"submit\" name=\"action\"\n                                    [disabled]=\"password !== repeatPassword || myForm.invalid\">Send\n                                <i class=\"material-icons right\">send</i>\n                            </button>\n                        </div>\n                    </form>\n                </div>\n                <div class=\"loader\" *ngIf=\"isSending\">\n                    <div class=\"preloader-wrapper big active\">\n                        <div class=\"spinner-layer spinner-blue\">\n                            <div class=\"circle-clipper left\">\n                                <div class=\"circle\"></div>\n                            </div><div class=\"gap-patch\">\n                            <div class=\"circle\"></div>\n                        </div><div class=\"circle-clipper right\">\n                            <div class=\"circle\"></div>\n                        </div>\n                        </div>\n\n                        <div class=\"spinner-layer spinner-red\">\n                            <div class=\"circle-clipper left\">\n                                <div class=\"circle\"></div>\n                            </div><div class=\"gap-patch\">\n                            <div class=\"circle\"></div>\n                        </div><div class=\"circle-clipper right\">\n                            <div class=\"circle\"></div>\n                        </div>\n                        </div>\n\n                        <div class=\"spinner-layer spinner-yellow\">\n                            <div class=\"circle-clipper left\">\n                                <div class=\"circle\"></div>\n                            </div><div class=\"gap-patch\">\n                            <div class=\"circle\"></div>\n                        </div><div class=\"circle-clipper right\">\n                            <div class=\"circle\"></div>\n                        </div>\n                        </div>\n\n                        <div class=\"spinner-layer spinner-green\">\n                            <div class=\"circle-clipper left\">\n                                <div class=\"circle\"></div>\n                            </div><div class=\"gap-patch\">\n                            <div class=\"circle\"></div>\n                        </div><div class=\"circle-clipper right\">\n                            <div class=\"circle\"></div>\n                        </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -399,7 +375,7 @@ module.exports = "<div class=\"container main__box\">\n    <h4 class=\"col s12 m
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_login_service__ = __webpack_require__("../../../../../src/app/shared/login.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_auth_service__ = __webpack_require__("../../../../../src/app/shared/auth.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterPageComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -415,25 +391,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var RegisterPageComponent = (function () {
-    function RegisterPageComponent(loginService, router) {
-        this.loginService = loginService;
+    function RegisterPageComponent(router, authService) {
         this.router = router;
+        this.authService = authService;
         this.fullName = "";
         this.email = "";
         this.password = "";
         this.repeatPassword = "";
+        this.isSending = false;
+        this.message = "";
+        this.status = 0;
     }
     RegisterPageComponent.prototype.ngOnInit = function () {
     };
     RegisterPageComponent.prototype.loginForm = function (name, mail, pass) {
         var _this = this;
-        this.loginService.registerUser(name, mail, pass).then(function (data) {
+        this.isSending = true;
+        this.authService.register(name, mail, pass).subscribe(function (res) {
+            _this.isSending = false;
             _this.fullName = "";
             _this.email = "";
             _this.password = "";
             _this.repeatPassword = "";
-            _this.router.navigate(['']);
-        }).catch(function (err) { return console.log("Error: " + err); });
+            _this.message = "All OK! You can come in!";
+            // console.log(res);
+            _this.status = 1;
+            setTimeout(function () {
+                _this.router.navigate(['']);
+            }, 5000);
+        }, function (err) {
+            _this.isSending = false;
+            _this.message = "This email has been registered";
+            _this.status = 2;
+            console.log(err);
+        });
     };
     return RegisterPageComponent;
 }());
@@ -443,7 +434,7 @@ RegisterPageComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/register-page/register-page.component.html"),
         styles: [__webpack_require__("../../../../../src/app/register-page/register-page.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_login_service__["a" /* LoginService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__shared_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_auth_service__["a" /* AuthService */]) === "function" && _b || Object])
 ], RegisterPageComponent);
 
 var _a, _b;
@@ -494,16 +485,80 @@ var formAnim = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_animat
 
 /***/ }),
 
-/***/ "../../../../../src/app/shared/data.service.ts":
+/***/ "../../../../../src/app/shared/auth.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__("../../../../angularfire2/auth.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var AuthService = (function () {
+    function AuthService(http) {
+        this.http = http;
+        this.url = __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiUrl;
+    }
+    AuthService.prototype.login = function (email, password) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        this.createAuthorizationHeader(headers);
+        var body = JSON.stringify({ 'email': email, 'password': password });
+        return this.http.post(this.url + "/login", body, { headers: headers });
+    };
+    AuthService.prototype.register = function (name, email, password) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        this.createAuthorizationHeader(headers);
+        var body = JSON.stringify({ 'name': name, 'email': email, 'password': password });
+        return this.http.post(this.url + "/register", body, { headers: headers });
+    };
+    AuthService.prototype.logout = function () {
+        return new Promise(function (resolve, reject) {
+            localStorage.clear();
+            resolve(true);
+        });
+    };
+    AuthService.prototype.createAuthorizationHeader = function (headers) {
+        headers.append("Content-Type", "application/json");
+    };
+    return AuthService;
+}());
+AuthService = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === "function" && _a || Object])
+], AuthService);
+
+var _a;
+//# sourceMappingURL=auth.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/shared/new-data.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__ = __webpack_require__("../../../../rxjs/BehaviorSubject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DataService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NewDataService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -514,220 +569,79 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+// import {Observable} from 'rxjs/Observable';
 
 
 
-var DataService = (function () {
-    function DataService(afAuth, http) {
-        this.afAuth = afAuth;
+
+
+var NewDataService = (function () {
+    function NewDataService(http, router) {
         this.http = http;
-        // items: BehaviorSubject<Project[]>;
-        this.url = 'http://localhost:7000/';
-        this.user = this.afAuth.authState;
-        // this.user.subscribe(data=>this.postRegister(data).subscribe(data=>{
-        //   console.log(data);
-        // })
-        // );
+        this.router = router;
+        this.token = localStorage.getItem('session_token') || null;
+        this.projects = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["BehaviorSubject"]([]);
+        this.projectList = this.projects.asObservable();
+        this.url = __WEBPACK_IMPORTED_MODULE_4__environments_environment__["a" /* environment */].apiUrl;
+        this.token = localStorage.getItem('session_token') || null;
     }
-    DataService.prototype.initUser = function () {
-        return this.user;
+    NewDataService.prototype.setToken = function (token) {
+        localStorage.setItem('session_token', token);
+        this.token = token;
     };
-    DataService.prototype.getProjects = function (userObj) {
-        // return this.items;
-        // this.items.
-        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Headers */]();
-        this.createAuthorizationHeader(headers);
-        return this.items = this.http.get(this.url + 'api/' + userObj.uid, { headers: headers }).map(this.parseData);
+    NewDataService.prototype.getProjects = function () {
+        var _this = this;
+        this.http.get(this.url + "/projects", { headers: this.createAuthorizationHeader() }).map(this.parseData).subscribe(function (res) {
+            _this.projects.next(res);
+        }, function (err) {
+            _this.router.navigate(['']);
+        });
     };
-    DataService.prototype.initit = function (userObj) {
-        // let headers = new Headers();
-        // this.createAuthorizationHeader(headers);
-        // this.items = new Observable((observer)=>{
-        // })
-        // return this.items = this.http.get(this.url+'api/'+userObj.uid, {headers: headers}).map(this.parseData);
+    NewDataService.prototype.createProject = function (name) {
+        var body = JSON.stringify({ name: name });
+        return this.http.post(this.url + "/project", body, { headers: this.createAuthorizationHeader() }).map(this.parseData);
     };
-    DataService.prototype.createAuthorizationHeader = function (headers) {
+    NewDataService.prototype.renameProject = function (project_id, name) {
+        var body = JSON.stringify({ project_id: project_id, name: name });
+        return this.http.put(this.url + "/project", body, { headers: this.createAuthorizationHeader() });
+    };
+    NewDataService.prototype.deleteProject = function (project_id) {
+        return this.http.delete(this.url + "/project/" + project_id, { headers: this.createAuthorizationHeader() });
+    };
+    NewDataService.prototype.addTask = function (name, project_id) {
+        var body = JSON.stringify({ name: name, project_id: project_id });
+        return this.http.post(this.url + "/task", body, { headers: this.createAuthorizationHeader() });
+    };
+    NewDataService.prototype.toggleTask = function (project, task) {
+        var body = JSON.stringify({ status: !task.status, project_id: project.id, task_id: task.id });
+        return this.http.put(this.url + "/task/status", body, { headers: this.createAuthorizationHeader() });
+    };
+    NewDataService.prototype.removeTask = function (project, task) {
+        return this.http.delete(this.url + "/project/" + project.id + "/task/" + task.id, { headers: this.createAuthorizationHeader() });
+    };
+    NewDataService.prototype.renameTask = function (project, task, name) {
+        var body = JSON.stringify({ name: name, task_id: task.id, project_id: project.id });
+        return this.http.put(this.url + "/task", body, { headers: this.createAuthorizationHeader() });
+    };
+    NewDataService.prototype.createAuthorizationHeader = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Headers */]();
         headers.append("Content-Type", "application/json");
+        headers.append('Authorization', "Bearer " + this.token);
+        return headers;
     };
-    DataService.prototype.parseData = function (res) {
+    NewDataService.prototype.parseData = function (res) {
         var data = res.json();
         return data || [];
     };
-    DataService.prototype.removeTask = function (project, task, person) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Headers */]();
-        this.createAuthorizationHeader(headers);
-        var fullUrl = this.url + 'api/' + person.uid + '/project/' + project + '/task/' + task;
-        return this.http.delete(fullUrl, { headers: headers });
-    };
-    DataService.prototype.toggleTask = function (project, task, person) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Headers */]();
-        this.createAuthorizationHeader(headers);
-        var fullUrl = this.url + 'api/toggle';
-        var body = { "status": !task.done, name: person.uid, project: project, task: task };
-        return this.http.put(fullUrl, body, { headers: headers });
-    };
-    DataService.prototype.rewriteTask = function (project, task, newTitle, person) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Headers */]();
-        this.createAuthorizationHeader(headers);
-        var fullUrl = this.url + 'api/task/update';
-        var body = JSON.stringify({ 'task': newTitle, 'name': person.uid, 'project': project.title, 'taskName': task.text });
-        return this.http.put(fullUrl, body, { headers: headers });
-    };
-    DataService.prototype.addTask = function (titleTask, project, person) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Headers */]();
-        this.createAuthorizationHeader(headers);
-        var fullUrl = this.url + 'api/task';
-        var body = JSON.stringify({ 'task': titleTask, 'name': person.uid, 'project': project.title });
-        return this.http.post(fullUrl, body, { headers: headers });
-    };
-    DataService.prototype.rewriteProject = function (person, project, newTitle) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Headers */]();
-        this.createAuthorizationHeader(headers);
-        var fullUrl = this.url + 'api/project/update';
-        console.log(person);
-        var body = JSON.stringify({
-            'project': newTitle,
-            'name': person.uid,
-            'projectName': project.title
-        });
-        return this.http.put(fullUrl, body, { headers: headers });
-    };
-    DataService.prototype.removeProject = function (person, project) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Headers */]();
-        this.createAuthorizationHeader(headers);
-        var fullUrl = this.url + 'api/' + person.uid + '/project/' + project.title;
-        return this.http.delete(fullUrl, { headers: headers });
-    };
-    DataService.prototype.createProject = function (title, person) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Headers */]();
-        this.createAuthorizationHeader(headers);
-        var fullUrl = this.url + 'api/project';
-        var body = JSON.stringify({
-            'name': person.uid,
-            'project': title
-        });
-        return this.http.post(fullUrl, body, { headers: headers });
-    };
-    return DataService;
+    return NewDataService;
 }());
-DataService = __decorate([
+NewDataService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__["b" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__["b" /* AngularFireAuth */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _b || Object])
-], DataService);
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_router__["b" /* Router */]) === "function" && _b || Object])
+], NewDataService);
 
 var _a, _b;
-//# sourceMappingURL=data.service.js.map
-
-/***/ }),
-
-/***/ "../../../../../src/app/shared/firebase.config.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return firebaseConfig; });
-var firebaseConfig = {
-    production: false,
-    firebase: {
-        apiKey: "AIzaSyCyvYmSGJrxYGR_Ir4AIEGdK1bIQOa7mGg",
-        authDomain: "angulartodo-c00ed.firebaseapp.com",
-        databaseURL: "https://angulartodo-c00ed.firebaseio.com",
-        projectId: "angulartodo-c00ed",
-        storageBucket: "",
-        messagingSenderId: "405962863586"
-    }
-};
-//# sourceMappingURL=firebase.config.js.map
-
-/***/ }),
-
-/***/ "../../../../../src/app/shared/login.service.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__("../../../../angularfire2/auth.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase_app__ = __webpack_require__("../../../../firebase/app.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase_app___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_firebase_app__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginService; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var LoginService = (function () {
-    function LoginService(afAuth, http) {
-        this.afAuth = afAuth;
-        this.http = http;
-    }
-    LoginService.prototype.registerUser = function (name, email, password) {
-        var _this = this;
-        return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(function (user) {
-            __WEBPACK_IMPORTED_MODULE_2_firebase_app__["auth"]().currentUser.updateProfile({ displayName: name, photoURL: '' });
-        }).catch(function (err) { return _this.handleError(err); });
-    };
-    LoginService.prototype.loginGoogle = function () {
-        var _this = this;
-        return this.afAuth.auth.signInWithPopup(new __WEBPACK_IMPORTED_MODULE_2_firebase_app__["auth"].GoogleAuthProvider()).then(function (data) {
-            console.log(data);
-        }).catch(function (err) { return _this.handleError(err); });
-    };
-    LoginService.prototype.loginGithub = function () {
-        var _this = this;
-        var githubUser = new __WEBPACK_IMPORTED_MODULE_2_firebase_app__["auth"].GithubAuthProvider();
-        githubUser.addScope('repo');
-        return this.afAuth.auth.signInWithPopup(githubUser).then(function (data) {
-            console.log(data);
-        }).catch(function (err) { return _this.handleError(err); });
-    };
-    LoginService.prototype.loginFacebook = function () {
-        var _this = this;
-        var facebookUser = new __WEBPACK_IMPORTED_MODULE_2_firebase_app__["auth"].FacebookAuthProvider();
-        facebookUser.addScope('user_birthday');
-        return this.afAuth.auth.signInWithPopup(facebookUser).then(function (data) {
-            console.log(data);
-        }).catch(function (err) { return _this.handleError(err); });
-    };
-    LoginService.prototype.loginTwitter = function () {
-        var _this = this;
-        var twitterUser = new __WEBPACK_IMPORTED_MODULE_2_firebase_app__["auth"].TwitterAuthProvider();
-        twitterUser.setCustomParameters({
-            lang: 'ru'
-        });
-        return this.afAuth.auth.signInWithPopup(twitterUser).then(function (data) {
-            console.log(data);
-        }, function (err) { return _this.handleError(err); });
-        ;
-    };
-    LoginService.prototype.loginEmailAndPassword = function (email, password) {
-        var _this = this;
-        return this.afAuth.auth.signInWithEmailAndPassword(email, password).then(function (data) {
-            console.log(data);
-        }).catch(function (err) { return _this.handleError(err); });
-    };
-    LoginService.prototype.logout = function () {
-        return this.afAuth.auth.signOut();
-    };
-    LoginService.prototype.handleError = function (err) {
-        console.log(err.name, err.message);
-    };
-    return LoginService;
-}());
-LoginService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__["b" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__["b" /* AngularFireAuth */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */]) === "function" && _b || Object])
-], LoginService);
-
-var _a, _b;
-//# sourceMappingURL=login.service.js.map
+//# sourceMappingURL=new-data.service.js.map
 
 /***/ }),
 
@@ -755,13 +669,6 @@ var appRouter = [
     { path: 'projects', component: __WEBPACK_IMPORTED_MODULE_2__project_page_project_page_component__["a" /* ProjectPageComponent */] }
 ];
 //# sourceMappingURL=routes.js.map
-
-/***/ }),
-
-/***/ "../../../../../src/app/shared/task.ts":
-/***/ (function(module, exports) {
-
-//# sourceMappingURL=task.js.map
 
 /***/ }),
 
@@ -810,7 +717,7 @@ module.exports = "<div class=\"foot\">\n  <button class=\"waves-effect waves-lig
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_animations__ = __webpack_require__("../../../../../src/app/shared/animations.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_data_service__ = __webpack_require__("../../../../../src/app/shared/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_new_data_service__ = __webpack_require__("../../../../../src/app/shared/new-data.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodoFormComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -825,39 +732,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var TodoFormComponent = (function () {
-    function TodoFormComponent(dataService) {
-        this.dataService = dataService;
+    function TodoFormComponent(newDataService) {
+        this.newDataService = newDataService;
         this.title = "";
         this.formActive = false;
     }
-    TodoFormComponent.prototype.ngOnInit = function () {
-    };
     TodoFormComponent.prototype.show = function () {
         this.formActive = !this.formActive;
     };
-    TodoFormComponent.prototype.addTitle = function (title) {
+    TodoFormComponent.prototype.addTitle = function (input) {
         var _this = this;
-        if (!title.value.trim()) {
+        if (!input.value.trim()) {
             return;
         }
-        this.dataService.createProject(title.value, this.user).subscribe(function (data) {
-            _this.projects.push({ title: title.value, arrayTask: [] });
-            _this.title = "";
+        this.newDataService.createProject(input.value).subscribe(function (res) {
+            _this.projects.unshift(res.project);
             _this.show();
-        }, function (err) {
-            console.log(err);
-        });
+        }, function (err) { return console.log(err); });
     };
     return TodoFormComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
-    __metadata("design:type", Array)
-], TodoFormComponent.prototype, "projects", void 0);
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
     __metadata("design:type", Object)
-], TodoFormComponent.prototype, "user", void 0);
+], TodoFormComponent.prototype, "projects", void 0);
 TodoFormComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
         selector: 'todo-form',
@@ -865,7 +763,7 @@ TodoFormComponent = __decorate([
         styles: [__webpack_require__("../../../../../src/app/todo-form/todo-form.component.css")],
         animations: [__WEBPACK_IMPORTED_MODULE_1__shared_animations__["a" /* formAnim */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__shared_data_service__["a" /* DataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_data_service__["a" /* DataService */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__shared_new_data_service__["a" /* NewDataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_new_data_service__["a" /* NewDataService */]) === "function" && _a || Object])
 ], TodoFormComponent);
 
 var _a;
@@ -894,7 +792,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/todo-project-header/todo-project-header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"list__head waves-effect waves-light card-header darken-1\" [ngClass]=\"{blue: !changed, red: changed}\">\n  <i class=\"material-icons date\">date_range</i>\n  <input type=\"text\" class=\"head__input white-text\" [attr.disabled]=\"changed?null:'disabled'\" value=\"{{item.title}}\" #inputElement>\n  <i class=\"material-icons rewrite\" *ngIf=\"!changed\" (click)=\"changed = !changed\">create</i>\n  <i class=\"material-icons rewrite\" *ngIf=\"changed\" (click)=\"onRewrite(item, inputElement)\">done</i>\n  <i class=\"material-icons delete\" (click)=\"onRemove(item)\">delete</i>\n</div>\n\n"
+module.exports = "<div class=\"list__head waves-effect waves-light card-header darken-1\" [ngClass]=\"{blue: !changed, red: changed}\">\n  <i class=\"material-icons date\">date_range</i>\n  <input type=\"text\" class=\"head__input white-text\" [attr.disabled]=\"changed?null:'disabled'\" value=\"{{item.name}}\" #inputElement>\n  <i class=\"material-icons rewrite\" *ngIf=\"!changed\" (click)=\"changed = !changed\">create</i>\n  <i class=\"material-icons rewrite\" *ngIf=\"changed\" (click)=\"onRewrite(item, inputElement)\">done</i>\n  <i class=\"material-icons delete\" (click)=\"onRemove(item)\">delete</i>\n</div>\n\n"
 
 /***/ }),
 
@@ -903,9 +801,7 @@ module.exports = "<div class=\"list__head waves-effect waves-light card-header d
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_project__ = __webpack_require__("../../../../../src/app/shared/project.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_project___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__shared_project__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_data_service__ = __webpack_require__("../../../../../src/app/shared/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_new_data_service__ = __webpack_require__("../../../../../src/app/shared/new-data.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodoProjectHeaderComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -918,28 +814,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
 var TodoProjectHeaderComponent = (function () {
-    function TodoProjectHeaderComponent(dataService) {
-        this.dataService = dataService;
+    function TodoProjectHeaderComponent(newDataService) {
+        this.newDataService = newDataService;
         this.changed = false;
     }
-    TodoProjectHeaderComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.dataService.initUser().subscribe(function (data) { _this.user = data; });
-    };
     TodoProjectHeaderComponent.prototype.onRewrite = function (project, input) {
         var _this = this;
-        this.dataService.rewriteProject(this.user, project, input.value).subscribe(function (data) {
-            console.log(data);
+        console.log(project, input);
+        this.newDataService.renameProject(project.id, input.value).subscribe(function (res) {
             _this.changed = !_this.changed;
-        }, function (err) {
-            console.log(err);
-        });
+        }, function (err) { return console.log(err); });
     };
     TodoProjectHeaderComponent.prototype.onRemove = function (project) {
         var _this = this;
-        this.dataService.removeProject(this.user, project).subscribe(function (data) {
+        this.newDataService.deleteProject(project.id).subscribe(function (data) {
             var index = _this.projects.indexOf(project);
             _this.projects.splice(index, 1);
         }, function (err) {
@@ -949,12 +838,12 @@ var TodoProjectHeaderComponent = (function () {
     return TodoProjectHeaderComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_project__["Project"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_project__["Project"]) === "function" && _a || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
+    __metadata("design:type", Object)
 ], TodoProjectHeaderComponent.prototype, "item", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
-    __metadata("design:type", Array)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
+    __metadata("design:type", Object)
 ], TodoProjectHeaderComponent.prototype, "projects", void 0);
 TodoProjectHeaderComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
@@ -962,10 +851,10 @@ TodoProjectHeaderComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/todo-project-header/todo-project-header.component.html"),
         styles: [__webpack_require__("../../../../../src/app/todo-project-header/todo-project-header.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__shared_data_service__["a" /* DataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_data_service__["a" /* DataService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_new_data_service__["a" /* NewDataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_new_data_service__["a" /* NewDataService */]) === "function" && _a || Object])
 ], TodoProjectHeaderComponent);
 
-var _a, _b;
+var _a;
 //# sourceMappingURL=todo-project-header.component.js.map
 
 /***/ }),
@@ -991,7 +880,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/todo-project/todo-project.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<ul class=\"main\" [@myAnim]>\n  <li class=\"main__list card\" *ngFor=\"let item of projects; let i= index\">\n    <todo-project-header [item]=\"item\" [projects]=\"projects\"></todo-project-header>\n    <todo-projects-form [item]=\"item\" [user]=\"user\" [projects]=\"projects\"></todo-projects-form>\n    <ul class=\"list__todos collection\">\n      <li class=\"todos__task collection-item\" *ngFor=\"let task of item.arrayTask\">\n        <!--<todo-task [item]=\"item\" [task]=\"task\"></todo-task>-->\n        <todo-task [item]=\"item\" [task]=\"task\" [projects]=\"projects\"></todo-task>\n      </li>\n    </ul>\n  </li>\n  <li class=\"main__list zero\" *ngIf=\"projects?.length < 1\">\n    Задач нет, придумайте их!\n  </li>\n</ul> "
+module.exports = "<ul class=\"main\" [@myAnim]>\n  <li class=\"main__list card\" *ngFor=\"let item of projects; let i= index\">\n    <todo-project-header [item]=\"item\" [projects]=\"projects\"></todo-project-header>\n    <todo-projects-form [item]=\"item\" [projects]=\"projects\"></todo-projects-form>\n    <ul class=\"list__todos collection\">\n      <li class=\"todos__task collection-item\" *ngFor=\"let task of item.ProjectTasks\">\n        <todo-task [item]=\"item\" [task]=\"task\" [projects]=\"projects\"></todo-task>\n      </li>\n    </ul>\n  </li>\n  <li class=\"main__list zero\" *ngIf=\"projects?.length < 1\">\n    Задач нет, придумайте их!\n  </li>\n</ul> "
 
 /***/ }),
 
@@ -1000,9 +889,7 @@ module.exports = "<ul class=\"main\" [@myAnim]>\n  <li class=\"main__list card\"
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_data_service__ = __webpack_require__("../../../../../src/app/shared/data.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_login_service__ = __webpack_require__("../../../../../src/app/shared/login.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_animations__ = __webpack_require__("../../../../../src/app/shared/animations.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_animations__ = __webpack_require__("../../../../../src/app/shared/animations.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodoProjectComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1015,27 +902,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
-
 var TodoProjectComponent = (function () {
-    function TodoProjectComponent(dataService, loginService) {
-        this.dataService = dataService;
-        this.loginService = loginService;
+    function TodoProjectComponent() {
     }
-    TodoProjectComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.dataService.initUser().subscribe(function (data) {
-            _this.user = data;
-            // this.dataService.getProjects().subscribe(data=>this.projects = data);
-        });
-    };
-    TodoProjectComponent.prototype.ngDoCheck = function () {
-        console.log(this.projects.length);
-    };
     return TodoProjectComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
     __metadata("design:type", Array)
 ], TodoProjectComponent.prototype, "projects", void 0);
 TodoProjectComponent = __decorate([
@@ -1043,12 +916,11 @@ TodoProjectComponent = __decorate([
         selector: 'todo-project',
         template: __webpack_require__("../../../../../src/app/todo-project/todo-project.component.html"),
         styles: [__webpack_require__("../../../../../src/app/todo-project/todo-project.component.css")],
-        animations: [__WEBPACK_IMPORTED_MODULE_3__shared_animations__["b" /* myAnim */]]
+        animations: [__WEBPACK_IMPORTED_MODULE_1__shared_animations__["b" /* myAnim */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_data_service__["a" /* DataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_data_service__["a" /* DataService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__shared_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_login_service__["a" /* LoginService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [])
 ], TodoProjectComponent);
 
-var _a, _b;
 //# sourceMappingURL=todo-project.component.js.map
 
 /***/ }),
@@ -1083,9 +955,7 @@ module.exports = "<form class=\"list__form card-content\" #myForm1=\"ngForm\" no
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_project__ = __webpack_require__("../../../../../src/app/shared/project.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_project___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__shared_project__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_data_service__ = __webpack_require__("../../../../../src/app/shared/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_new_data_service__ = __webpack_require__("../../../../../src/app/shared/new-data.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodoProjectsFormComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1098,47 +968,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
 var TodoProjectsFormComponent = (function () {
-    function TodoProjectsFormComponent(dataService) {
-        this.dataService = dataService;
+    function TodoProjectsFormComponent(newDataService) {
+        this.newDataService = newDataService;
         this.task = '';
     }
-    TodoProjectsFormComponent.prototype.ngOnInit = function () {
-    };
     TodoProjectsFormComponent.prototype.addTask = function (input, project) {
         var _this = this;
         if (!input.value.trim()) {
             return;
         }
-        this.dataService.addTask(input.value, project, this.user).subscribe(function (data) {
+        this.newDataService.addTask(input.value, project.id).subscribe(function (data) {
             var index = 0;
-            var indexTodo = _this.projects.find(function (elem, item) {
-                if (elem.title === project.title) {
-                    index = item;
-                    return true;
+            _this.projects.forEach(function (el, i) {
+                if (el.id == project.id) {
+                    index = i;
                 }
-                return false;
             });
-            _this.projects[index].arrayTask.push({ text: input.value, done: false });
+            _this.projects[index].ProjectTasks.push({ name: input.value, status: false });
             _this.task = "";
-        }, function (err) {
-            console.log(err);
-        });
+        }, function (err) { return console.log(err); });
     };
     return TodoProjectsFormComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_project__["Project"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_project__["Project"]) === "function" && _a || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
+    __metadata("design:type", Object)
 ], TodoProjectsFormComponent.prototype, "item", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
     __metadata("design:type", Object)
-], TodoProjectsFormComponent.prototype, "user", void 0);
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
-    __metadata("design:type", Array)
 ], TodoProjectsFormComponent.prototype, "projects", void 0);
 TodoProjectsFormComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
@@ -1146,10 +1005,10 @@ TodoProjectsFormComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/todo-projects-form/todo-projects-form.component.html"),
         styles: [__webpack_require__("../../../../../src/app/todo-projects-form/todo-projects-form.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__shared_data_service__["a" /* DataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_data_service__["a" /* DataService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_new_data_service__["a" /* NewDataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_new_data_service__["a" /* NewDataService */]) === "function" && _a || Object])
 ], TodoProjectsFormComponent);
 
-var _a, _b;
+var _a;
 //# sourceMappingURL=todo-projects-form.component.js.map
 
 /***/ }),
@@ -1175,7 +1034,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/todo-task/todo-task.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<i class=\"material-icons checkbox\" (click)=\"toggle(item, task, inputElement)\">{{task.done?'check_box':'check_box_outline_blank'}}</i>\n<input type=\"text\" class=\"task__title\" value=\"{{task.text}}\" [attr.disabled]=\"changed?null:'disabled'\" [ngClass]=\"{done: task.done}\" #inputElement focus>\n<div class=\"task__interaction\">\n  <i class=\"material-icons\">swap_vert</i>\n  <i class=\"material-icons\" *ngIf=\"!changed\" (click)=\"changed = !changed\">create</i>\n  <i class=\"material-icons\" (click)=\"rewriteTask(item,task, inputElement)\" *ngIf=\"changed\">done</i>\n  <i class=\"material-icons\" (click)=\"removeTask(item, task)\">delete</i>\n</div>"
+module.exports = "<i class=\"material-icons checkbox\" (click)=\"toggle(item, task, inputElement)\">{{task.status?'check_box':'check_box_outline_blank'}}</i>\n<input type=\"text\" class=\"task__title\" value=\"{{task.name}}\" [attr.disabled]=\"changed?null:'disabled'\" [ngClass]=\"{done: task.status}\" #inputElement focus>\n<div class=\"task__interaction\">\n  <i class=\"material-icons\">swap_vert</i>\n  <i class=\"material-icons\" *ngIf=\"!changed\" (click)=\"changed = !changed\">create</i>\n  <i class=\"material-icons\" (click)=\"rewriteTask(item,task, inputElement)\" *ngIf=\"changed\">done</i>\n  <i class=\"material-icons\" (click)=\"removeTask(item, task)\">delete</i>\n</div>"
 
 /***/ }),
 
@@ -1186,9 +1045,7 @@ module.exports = "<i class=\"material-icons checkbox\" (click)=\"toggle(item, ta
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_project__ = __webpack_require__("../../../../../src/app/shared/project.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_project___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__shared_project__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_task__ = __webpack_require__("../../../../../src/app/shared/task.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_task___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__shared_task__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_data_service__ = __webpack_require__("../../../../../src/app/shared/data.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_new_data_service__ = __webpack_require__("../../../../../src/app/shared/new-data.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodoTaskComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1202,59 +1059,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var TodoTaskComponent = (function () {
-    function TodoTaskComponent(dataService) {
-        this.dataService = dataService;
+    function TodoTaskComponent(newDataService) {
+        this.newDataService = newDataService;
         this.changed = false;
     }
-    TodoTaskComponent.prototype.ngOnInit = function () {
+    TodoTaskComponent.prototype.removeTask = function (project, task) {
         var _this = this;
-        this.dataService.initUser().subscribe(function (data) { _this.user = data; });
-    };
-    TodoTaskComponent.prototype.removeTask = function (todo, mission) {
-        var _this = this;
-        this.dataService.removeTask(todo.title, mission.text, this.user).subscribe(function (data) {
-            var arr = _this.searchTask(todo, mission);
-            _this.projects[arr[0]].arrayTask.splice(arr[1], 1);
-        }, function (err) {
-            console.log(err);
-        });
-    };
-    TodoTaskComponent.prototype.searchTask = function (todo, mission) {
-        var indexTodo = this.projects.indexOf(todo);
-        var indexTask = this.projects[indexTodo].arrayTask.indexOf(mission);
-        var arr = [indexTodo, indexTask];
-        return arr;
+        this.newDataService.removeTask(project, task).subscribe(function (res) {
+            var arr = _this.searchTask(project, task);
+            _this.projects[arr[0]].ProjectTasks.splice(arr[1], 1);
+        }, function (err) { return console.log(err); });
     };
     TodoTaskComponent.prototype.toggle = function (project, task, input) {
-        this.dataService.toggleTask(project.title, input.value, this.user).subscribe(function (data) {
-            task.done = !task.done;
-        }, function (err) {
-            console.log('ERR: ' + err);
-        });
+        var _this = this;
+        this.newDataService.toggleTask(project, task).subscribe(function (res) {
+            _this.task.status = !_this.task.status;
+        }, function (err) { return console.log(err); });
     };
     TodoTaskComponent.prototype.rewriteTask = function (project, task, input) {
         var _this = this;
-        this.dataService.rewriteTask(project, task, input.value, this.user).subscribe(function (data) {
+        this.newDataService.renameTask(project, task, input.value).subscribe(function (res) {
             _this.changed = !_this.changed;
-        }, function (err) {
-            console.log(err);
-        });
+        }, function (err) { return console.log(err); });
+    };
+    TodoTaskComponent.prototype.searchTask = function (todo, mission) {
+        var indexTodo = this.projects.indexOf(todo);
+        var indexTask = this.projects[indexTodo].ProjectTasks.indexOf(mission);
+        var arr = [indexTodo, indexTask];
+        return arr;
     };
     return TodoTaskComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
     __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_project__["Project"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_project__["Project"]) === "function" && _a || Object)
 ], TodoTaskComponent.prototype, "item", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
-    __metadata("design:type", Array)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
+    __metadata("design:type", Object)
 ], TodoTaskComponent.prototype, "projects", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
-    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__shared_task__["Task"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_task__["Task"]) === "function" && _b || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
+    __metadata("design:type", Object)
 ], TodoTaskComponent.prototype, "task", void 0);
 TodoTaskComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* Component */])({
@@ -1262,10 +1109,10 @@ TodoTaskComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/todo-task/todo-task.component.html"),
         styles: [__webpack_require__("../../../../../src/app/todo-task/todo-task.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__shared_data_service__["a" /* DataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__shared_data_service__["a" /* DataService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__shared_new_data_service__["a" /* NewDataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_new_data_service__["a" /* NewDataService */]) === "function" && _b || Object])
 ], TodoTaskComponent);
 
-var _a, _b, _c;
+var _a, _b;
 //# sourceMappingURL=todo-task.component.js.map
 
 /***/ }),
@@ -1281,7 +1128,8 @@ var _a, _b, _c;
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 // The file contents for the current environment will overwrite these during build.
 var environment = {
-    production: false
+    production: false,
+    apiUrl: 'http://localhost:8181'
 };
 //# sourceMappingURL=environment.js.map
 

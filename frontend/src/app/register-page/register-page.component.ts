@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from '../shared/login.service';
 import {AuthService} from '../shared/auth.service';
 import {Router} from '@angular/router';
 
@@ -16,7 +15,7 @@ export class RegisterPageComponent implements OnInit {
   private isSending: boolean = false;
   private message: string = "";
   private status:number = 0;
-  constructor(private loginService: LoginService, private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -40,12 +39,5 @@ export class RegisterPageComponent implements OnInit {
       this.status = 2;
       console.log(err);
     });
-    // this.loginService.registerUser(name, mail, pass).then(data=>{
-    //   this.fullName = "";
-    //   this.email = "";
-    //   this.password = "";
-    //   this.repeatPassword = "";
-    //   this.router.navigate(['']);
-    // }).catch(err=>console.log(`Error: ${err}`));
   }
 }

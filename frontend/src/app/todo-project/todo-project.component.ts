@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, DoCheck } from '@angular/core';
 import {Project} from '../shared/project';
-import {DataService} from '../shared/data.service';
-import {LoginService} from '../shared/login.service';
 import {myAnim} from '../shared/animations';
 
 
@@ -13,5 +11,5 @@ import {myAnim} from '../shared/animations';
 })
 export class TodoProjectComponent{
   @Input() projects: Project[];
-  constructor(private dataService:DataService, private loginService: LoginService) {}
+  constructor() {}
 }

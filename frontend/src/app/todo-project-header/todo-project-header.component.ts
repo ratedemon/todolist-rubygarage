@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import {Project} from '../shared/project';
-import {DataService} from '../shared/data.service';
 import {NewDataService} from '../shared/new-data.service';
 
 @Component({
@@ -12,7 +11,7 @@ export class TodoProjectHeaderComponent{
   @Input() item;
   @Input() projects;
   private changed = false;
-  constructor(private dataService: DataService, private newDataService: NewDataService) { }
+  constructor(private newDataService: NewDataService) { }
 
   onRewrite(project, input: HTMLInputElement){
     console.log(project, input);

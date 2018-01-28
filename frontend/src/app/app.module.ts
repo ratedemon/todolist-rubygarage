@@ -9,18 +9,12 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import {DataService} from './shared/data.service';
-import {LoginService} from './shared/login.service';
 import { AuthService } from './shared/auth.service';
 import { NewDataService } from './shared/new-data.service';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 
-import {firebaseConfig} from './shared/firebase.config';
 import {appRouter} from './shared/routes';
 import { ProjectPageComponent } from './project-page/project-page.component';
 import { TodoProjectComponent } from './todo-project/todo-project.component';
@@ -43,7 +37,7 @@ import {createTranslateLoader} from './shared/translateLoader';
     TodoProjectHeaderComponent
   ],
   imports: [
-    BrowserModule, AngularFireModule.initializeApp(firebaseConfig.firebase), AngularFireAuthModule, AngularFireDatabaseModule, RouterModule.forRoot(appRouter), FormsModule, HttpModule, BrowserAnimationsModule, TranslateModule.forRoot({
+    BrowserModule, RouterModule.forRoot(appRouter), FormsModule, HttpModule, BrowserAnimationsModule, TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
@@ -54,7 +48,7 @@ import {createTranslateLoader} from './shared/translateLoader';
   exports:[
     TranslateModule
   ],
-  providers: [DataService, LoginService, AuthService, NewDataService],
+  providers: [AuthService, NewDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

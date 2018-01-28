@@ -4,6 +4,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Http, Headers, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class NewDataService {
@@ -11,7 +12,7 @@ export class NewDataService {
   private projects = new BehaviorSubject([]);
   projectList = this.projects.asObservable();
   private url = environment.apiUrl;
-  constructor(private http: Http) {
+  constructor(private http: Http, private router: Router) {
     this.token = localStorage.getItem('session_token') || null;
   }
   setToken(token: string){
@@ -21,7 +22,9 @@ export class NewDataService {
   getProjects(){
     this.http.get(`${this.url}/projects`, {headers:this.createAuthorizationHeader()}).map(this.parseData).subscribe(res=>{
       this.projects.next(res);
-    }, err=>console.log(err));
+    }, err=>{
+      this.router.navigate(['']);
+    });
   }
   createProject(name){
     let body = JSON.stringify({name: name});

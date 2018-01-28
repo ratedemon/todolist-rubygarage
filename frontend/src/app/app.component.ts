@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {LoginService} from './shared/login.service';
+import {AuthService} from './shared/auth.service';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -9,7 +9,7 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private loginService: LoginService, private router: Router, private translate: TranslateService){
+  constructor(private router: Router, private translate: TranslateService, private authService: AuthService){
     translate.addLangs(['en', 'ru']);
     translate.setDefaultLang('en');
     let browserLang = translate.getBrowserLang();
@@ -17,9 +17,8 @@ export class AppComponent {
   }
 
   logout(){
-    this.loginService.logout().then(data=>{
+    this.authService.logout().then(data=>{
       this.router.navigate(['']);
     })
-
   }
 }

@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Project} from '../shared/project';
 import {formAnim} from '../shared/animations'
-import {DataService} from '../shared/data.service';
 import {NewDataService} from '../shared/new-data.service';
 
 @Component({
@@ -14,7 +12,7 @@ export class TodoFormComponent{
   @Input() projects;
   private title = "";
   private formActive: boolean = false;
-  constructor(private dataService: DataService, private newDataService: NewDataService) { }
+  constructor(private newDataService: NewDataService) { }
 
   show(){
     this.formActive = !this.formActive;
