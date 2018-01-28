@@ -1124,7 +1124,7 @@ var _a, _b;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
 var environment = {
     production: true,
-    apiUrl: 'https://rubytodoapp.herokuapp.com/'
+    apiUrl: 'https://rubytodoapp.herokuapp.com'
 };
 //# sourceMappingURL=environment.js.map
 
