@@ -8,9 +8,9 @@ const db = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.e
 
 // db.authenticate().then(function(errors) { console.log(errors) });
 
-// db.sync()
-//   .then(() => {
+db.sync()
+  .then(() => {
     console.log('DB synced');
-  // });
+  });
 
 export default db;

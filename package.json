@@ -1,0 +1,17 @@
+{
+  "name": "rubytodo",
+  "version": "0.0.1",
+  "engines": {
+    "node" : "8.9.4"
+  },
+  "scripts": {
+    "start" : "concurrently \"cd frontend && npm install\" \"cd new_backend && npm install\"",
+    "build" : "cd frontend && ng build --prod --env=prod",
+    "install": "(cd new_backend && npm install) && (cd frontend && npm install)",
+    "start:prod" : "cd new_backend && npm run start:prod",
+    "heroku-postbuild" : "npm run build"
+  },
+  "dependencies": {
+    "concurrently": "3.5.1"
+  }
+}
