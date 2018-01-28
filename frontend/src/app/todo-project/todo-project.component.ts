@@ -11,19 +11,7 @@ import {myAnim} from '../shared/animations';
   styleUrls: ['./todo-project.component.css'],
   animations: [myAnim]
 })
-export class TodoProjectComponent implements OnInit, DoCheck {
+export class TodoProjectComponent{
   @Input() projects: Project[];
-  user: any;
-  constructor(private dataService:DataService, private loginService: LoginService) {
-  }
-
-  ngOnInit() {
-    this.dataService.initUser().subscribe(data=>{this.user=data;
-      // this.dataService.getProjects().subscribe(data=>this.projects = data);
-    });
-  }
-  ngDoCheck(){
-    console.log(this.projects.length) ;
-    
-  }
+  constructor(private dataService:DataService, private loginService: LoginService) {}
 }

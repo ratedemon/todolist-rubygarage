@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import {DataService} from './shared/data.service';
 import {LoginService} from './shared/login.service';
 import { AuthService } from './shared/auth.service';
+import { NewDataService } from './shared/new-data.service';
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -52,7 +54,7 @@ import {createTranslateLoader} from './shared/translateLoader';
   exports:[
     TranslateModule
   ],
-  providers: [DataService, LoginService, AuthService],
+  providers: [DataService, LoginService, AuthService, NewDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

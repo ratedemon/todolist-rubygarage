@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DataService} from '../shared/data.service';
 import {AuthService} from '../shared/auth.service';
 import {LoginService} from '../shared/login.service';
+import {NewDataService} from '../shared/new-data.service';
 import {Router} from '@angular/router';
 import {Response} from '@angular/http';
 
@@ -12,7 +13,7 @@ import {Response} from '@angular/http';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private dataService: DataService, private loginService: LoginService, private router: Router, private authService: AuthService) { }
+  constructor(private dataService: DataService, private loginService: LoginService, private router: Router, private authService: AuthService, private newDataService: NewDataService) { }
   email: string = "";
   password: string = '';
   user: any;
@@ -33,7 +34,8 @@ export class LoginPageComponent implements OnInit {
       this.isSending = false;
       let token:string = res.json().token;
       console.log(token);
-      this.authService.setToken(token);
+      // this.authService.setToken(token);
+      this.newDataService.setToken(token);
       this.navToProjects();
     }, err => console.log(err));
   }

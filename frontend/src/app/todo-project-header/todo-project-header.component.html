@@ -1,6 +1,6 @@
 <div class="list__head waves-effect waves-light card-header darken-1" [ngClass]="{blue: !changed, red: changed}">
   <i class="material-icons date">date_range</i>
-  <input type="text" class="head__input white-text" [attr.disabled]="changed?null:'disabled'" value="{{item.title}}" #inputElement>
+  <input type="text" class="head__input white-text" [attr.disabled]="changed?null:'disabled'" value="{{item.name}}" #inputElement>
   <i class="material-icons rewrite" *ngIf="!changed" (click)="changed = !changed">create</i>
   <i class="material-icons rewrite" *ngIf="changed" (click)="onRewrite(item, inputElement)">done</i>
   <i class="material-icons delete" (click)="onRemove(item)">delete</i>

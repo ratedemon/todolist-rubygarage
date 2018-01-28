@@ -21,14 +21,7 @@ export class AuthService {
       let body = JSON.stringify({'name': name,'email' : email, 'password' : password});
       return this.http.post(`${this.url}/register`, body, {headers: headers});
   }
-  setToken(token: string){
-      localStorage.setItem('session_token', token);
-      this.token = token;
-  }
   private createAuthorizationHeader(headers: Headers){
       headers.append("Content-Type", "application/json" );
-      if(this.token){
-        headers.append('Authorization', this.token);
-      }
   }
 }

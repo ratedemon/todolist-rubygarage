@@ -9,7 +9,7 @@ import {DataService} from '../shared/data.service';
 })
 export class TodoProjectsFormComponent implements OnInit {
   @Input() item: Project;
-  @Input() user: any;
+  user: any;
   @Input() projects: Project[];
   task = '';
   constructor(private dataService: DataService) { }
@@ -27,7 +27,7 @@ export class TodoProjectsFormComponent implements OnInit {
           return true;
         }
         return false;
-      })
+      });
       this.projects[index].arrayTask.push({text: input.value, done: false});
       this.task = "";
     }, (err)=>{
