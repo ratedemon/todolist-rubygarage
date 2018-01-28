@@ -7,7 +7,6 @@ import jwt from "jsonwebtoken";
 
 export default class UserController{
     static async login(ctx){
-        console.log(ctx.request.body.password);
         const user = await User.findOne({
             where: {
                 email: ctx.request.body.email

@@ -6,13 +6,7 @@ import Task from '../models/task/model';
 
 export default class TaskController{
     static async create(ctx){
-        console.log(ctx.request.body);
-        const project = await Project.findOne({
-            where: {
-                id: ctx.request.body.project_id,
-                user_id: ctx.request.body.id
-            }
-        });
+        const project = await TaskController.verifyProject(ctx);
         if(!project) return ctx.throw(403);
         try{
             const task = await Task.create({
@@ -26,13 +20,7 @@ export default class TaskController{
         }
     }
     static async updateName(ctx){
-        console.log(ctx.request.body);
-        const project = await Project.findOne({
-            where: {
-                id: ctx.request.body.project_id,
-                user_id: ctx.request.body.id
-            }
-        });
+        const project = await TaskController.verifyProject(ctx);
         if(!project) return ctx.throw(403);
         try{
             const task = await Task.create({
@@ -46,12 +34,7 @@ export default class TaskController{
         }
     }
     static async delete(ctx){
-        const project = await Project.findOne({
-            where: {
-                id: ctx.params.project_id,
-                user_id: ctx.request.body.id
-            }
-        });
+        const project = await TaskController.verifyProject(ctx);
         if(!project) return ctx.throw(403);
         try{
             const task = await Task.destroy({
@@ -67,12 +50,7 @@ export default class TaskController{
         }
     }
     static async changePosition(ctx){
-        const project = await Project.findOne({
-            where: {
-                id: ctx.request.body.project_id,
-                user_id: ctx.request.body.id
-            }
-        });
+        const project = await TaskController.verifyProject(ctx);
         if(!project) return ctx.throw(403);
         try{
             const task = await Task.update({
@@ -96,12 +74,7 @@ export default class TaskController{
         }
     }
     static async changeStatus(ctx){
-        const project = await Project.findOne({
-            where: {
-                id: ctx.request.body.project_id,
-                user_id: ctx.request.body.id
-            }
-        });
+        const project = await TaskController.verifyProject(ctx);
         if(!project) return ctx.throw(403);
         try{
             const task = await Task.update({
@@ -123,5 +96,14 @@ export default class TaskController{
             console.log(e);
             ctx.throw(400);
         }
+    }
+    static async verifyProject(ctx){
+        const project = await Project.findOne({
+            where: {
+                id: ctx.request.body.project_id,
+                user_id: ctx.request.body.id
+            }
+        });
+        return project;
     }
 }
