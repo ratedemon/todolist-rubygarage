@@ -23,12 +23,16 @@ export class NewDataService {
       this.projects.next(res);
     }, err=>console.log(err));
   }
-  renameProject(project_id, name){
+  renameProject(project_id: number, name: string){
     let body = JSON.stringify({project_id: project_id, name: name});
     return this.http.put(`${this.url}/project`, body, {headers: this.createAuthorizationHeader()});
   }
-  deleteProject(project_id){
+  deleteProject(project_id: number){
     return this.http.delete(`${this.url}/project/${project_id}`, {headers: this.createAuthorizationHeader()});
+  }
+  addTask(name: string, project_id: number){
+    let body = JSON.stringify({name: name, project_id: project_id});
+    return this.http.post(`${this.url}/task`, body, {headers: this.createAuthorizationHeader()});
   }
   private createAuthorizationHeader(){
     let headers = new Headers();

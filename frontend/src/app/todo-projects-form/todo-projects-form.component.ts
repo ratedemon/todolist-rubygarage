@@ -1,37 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Project} from '../shared/project';
-import {DataService} from '../shared/data.service';
+import {NewDataService} from '../shared/new-data.service';
 
 @Component({
   selector: 'todo-projects-form',
   templateUrl: './todo-projects-form.component.html',
   styleUrls: ['./todo-projects-form.component.css']
 })
-export class TodoProjectsFormComponent implements OnInit {
-  @Input() item: Project;
-  user: any;
-  @Input() projects: Project[];
+export class TodoProjectsFormComponent{
+  @Input() item;
+  @Input() projects;
   task = '';
-  constructor(private dataService: DataService) { }
-  ngOnInit() {
-  }
-  addTask(input: HTMLInputElement, project: Project){
+  constructor(private newDataService: NewDataService) { }
+
+  addTask(input: HTMLInputElement, project){
     if(!input.value.trim()){
       return;
     }
-    this.dataService.addTask(input.value, project, this.user).subscribe(data=>{
+    this.newDataService.addTask(input.value, project.id).subscribe(data => {
       let index = 0;
-      let indexTodo = this.projects.find((elem, item)=>{
-        if(elem.title === project.title){
-          index = item;
-          return true;
+      this.projects.forEach((el, i) => {
+        if(el.id == project.id){
+          index = i;
         }
-        return false;
       });
-      this.projects[index].arrayTask.push({text: input.value, done: false});
+      this.projects[index].ProjectTasks.push({name: input.value, status: false});
       this.task = "";
-    }, (err)=>{
-      console.log(err);
-    });
+    },err => console.log(err));
   }
 }
