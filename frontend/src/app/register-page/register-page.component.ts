@@ -8,13 +8,13 @@ import {Router} from '@angular/router';
   styleUrls: ['./register-page.component.css']
 })
 export class RegisterPageComponent implements OnInit {
-  private fullName: string = "";
-  private email: string = "";
-  private password: string = "";
-  private repeatPassword: string = "";
-  private isSending: boolean = false;
-  private message: string = "";
-  private status:number = 0;
+  fullName: string = "";
+  email: string = "";
+  password: string = "";
+  repeatPassword: string = "";
+  isSending: boolean = false;
+  message: string = "";
+  status:number = 0;
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
