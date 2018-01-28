@@ -62,36 +62,128 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports) {
 
-module.exports = require("dotenv");
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
 module.exports = require("sequelize");
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(11);
-
-
-/***/ }),
-/* 3 */
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__db_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__db_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__user_model__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__task_model__ = __webpack_require__(2);
+//import Joi from 'joi';
+//import schema from './schema';
+
+
+
+
+
+const Project = __WEBPACK_IMPORTED_MODULE_1__db_js__["a" /* default */].define('projects', {
+    id: {
+        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name: {
+        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+        notNull: true
+    },
+    user_id: {
+        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+        references: {
+            model: __WEBPACK_IMPORTED_MODULE_2__user_model__["a" /* default */],
+            key: 'id',
+            deferrable: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Deferrable.INITIALLY_IMMEDIATE
+        }
+    }
+});
+
+Project.hasMany(__WEBPACK_IMPORTED_MODULE_3__task_model__["a" /* default */], { foreignKey: 'project_id', onDelete: 'cascade', as: 'ProjectTasks' });
+// Project.belongsToMany(Task, {as: "tasks", through: "project_tasks", foreignKey: 'task_id', otherKey: "project_id"});
+
+/* harmony default export */ __webpack_exports__["a"] = (Project);
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__db_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_model__ = __webpack_require__(1);
+//import Joi from 'joi';
+//import schema from './schema';
+
+
+
+
+const Task = __WEBPACK_IMPORTED_MODULE_1__db_js__["a" /* default */].define('tasks', {
+    id: {
+        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name: {
+        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
+        notNull: true
+    },
+    status: {
+        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
+    position: {
+        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+        allowNull: true,
+        defaultValue: null
+    },
+    project_id: {
+        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
+        references: {
+            model: __WEBPACK_IMPORTED_MODULE_2__project_model__["a" /* default */],
+            key: 'id',
+            deferrable: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Deferrable.INITIALLY_IMMEDIATE
+        }
+    }
+});
+
+// Task.belongsToMany(Project, {as: "projects", through: "project_tasks", foreignKey: 'project_id', otherKey: "task_id"});
+// Task.belongsTo(Project);
+
+/* harmony default export */ __webpack_exports__["a"] = (Task);
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(16);
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("dotenv");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__db_js__ = __webpack_require__(6);
 //import Joi from 'joi';
 //import schema from './schema';
 
@@ -118,11 +210,11 @@ const User = __WEBPACK_IMPORTED_MODULE_1__db_js__["a" /* default */].define('use
 /* harmony default export */ __webpack_exports__["a"] = (User);
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
 
 
@@ -134,41 +226,43 @@ const db = new __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a(process.env.DB_
 
 // db.authenticate().then(function(errors) { console.log(errors) });
 
-// db.sync()
-//   .then(() => {
-console.log('DB synced');
-// });
+db.sync().then(() => {
+  console.log('DB synced');
+});
 
 /* harmony default export */ __webpack_exports__["a"] = (db);
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("jsonwebtoken");
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(7);
+module.exports = __webpack_require__(9);
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(8);
+/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_morgan__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_morgan__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_morgan___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa_morgan__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dotenv__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dotenv__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dotenv___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_dotenv__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa2_cors__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa2_cors___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_koa2_cors__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_koa_static__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_koa_static___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_koa_static__);
+
 
 
 
@@ -179,6 +273,8 @@ __WEBPACK_IMPORTED_MODULE_2_dotenv___default.a.config();
 
 const app = new __WEBPACK_IMPORTED_MODULE_0_koa___default.a();
 app.use(__WEBPACK_IMPORTED_MODULE_4_koa2_cors___default()());
+app.use(__WEBPACK_IMPORTED_MODULE_5_koa_static___default()(__dirname + '/../dist'));
+console.log(__dirname + '/../dist');
 app.use(Object(__WEBPACK_IMPORTED_MODULE_3__router__["b" /* routes */])());
 
 app.use(Object(__WEBPACK_IMPORTED_MODULE_3__router__["a" /* allowedMethods */])());
@@ -186,37 +282,38 @@ app.use(Object(__WEBPACK_IMPORTED_MODULE_3__router__["a" /* allowedMethods */])(
 app.use(__WEBPACK_IMPORTED_MODULE_1_koa_morgan___default()('tiny')).listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}...`);
 });
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "src"))
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa");
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-morgan");
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["b"] = routes;
 /* harmony export (immutable) */ __webpack_exports__["a"] = allowedMethods;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user_model__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_project_model__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_task_model__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user_model__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_project_model__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_task_model__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_body__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_body___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_koa_body__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_dotenv__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_dotenv__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_dotenv___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_dotenv__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__middleware_authMiddleware__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__controllers_user__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__middleware_authMiddleware__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__controllers_user__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__controllers_project__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__controllers_task__ = __webpack_require__(20);
 
@@ -258,58 +355,10 @@ function allowedMethods() {
 }
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = require("regenerator-runtime");
-
-/***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-router");
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__db_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__user_model__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__task_model__ = __webpack_require__(17);
-//import Joi from 'joi';
-//import schema from './schema';
-
-
-
-
-
-const Project = __WEBPACK_IMPORTED_MODULE_1__db_js__["a" /* default */].define('projects', {
-    id: {
-        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    name: {
-        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-        notNull: true
-    },
-    user_id: {
-        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
-        references: {
-            model: __WEBPACK_IMPORTED_MODULE_2__user_model__["a" /* default */],
-            key: 'id',
-            deferrable: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Deferrable.INITIALLY_IMMEDIATE
-        }
-    }
-});
-
-Project.hasMany(__WEBPACK_IMPORTED_MODULE_3__task_model__["a" /* default */], { foreignKey: 'project_id', onDelete: 'cascade', as: 'ProjectTasks' });
-// Project.belongsToMany(Task, {as: "tasks", through: "project_tasks", foreignKey: 'task_id', otherKey: "project_id"});
-
-/* harmony default export */ __webpack_exports__["a"] = (Project);
 
 /***/ }),
 /* 14 */
@@ -319,21 +368,15 @@ module.exports = require("koa-body");
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("bcrypt");
-
-/***/ }),
-/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return verifyAuth; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jsonwebtoken__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jsonwebtoken__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jsonwebtoken__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dotenv__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dotenv__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dotenv___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_dotenv__);
 
 
@@ -397,66 +440,22 @@ __WEBPACK_IMPORTED_MODULE_2_dotenv___default.a.config();
 
 
 /***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ }),
 /* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__db_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__project_model__ = __webpack_require__(13);
-//import Joi from 'joi';
-//import schema from './schema';
-
-
-
-
-const Task = __WEBPACK_IMPORTED_MODULE_1__db_js__["a" /* default */].define('tasks', {
-    id: {
-        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    name: {
-        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.STRING,
-        notNull: true
-    },
-    status: {
-        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
-    },
-    position: {
-        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
-        allowNull: true,
-        defaultValue: null
-    },
-    project_id: {
-        type: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.INTEGER,
-        references: {
-            model: __WEBPACK_IMPORTED_MODULE_2__project_model__["a" /* default */],
-            key: 'id',
-            deferrable: __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a.Deferrable.INITIALLY_IMMEDIATE
-        }
-    }
-});
-
-// Task.belongsToMany(Project, {as: "projects", through: "project_tasks", foreignKey: 'project_id', otherKey: "task_id"});
-// Task.belongsTo(Project);
-
-/* harmony default export */ __webpack_exports__["a"] = (Task);
-
-/***/ }),
-/* 18 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user_model__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bcrypt__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_user_model__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bcrypt__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bcrypt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_bcrypt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsonwebtoken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_jsonwebtoken__);
 
 
@@ -587,14 +586,20 @@ class UserController {
 
 
 /***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("bcrypt");
+
+/***/ }),
 /* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_project_model__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_task_model__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_project_model__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_task_model__ = __webpack_require__(2);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -624,7 +629,7 @@ class ProjectController {
 
                     case 4:
                         project = _context.sent;
-                        return _context.abrupt('return', ctx.body = project);
+                        return _context.abrupt('return', ctx.body = { project: project });
 
                     case 8:
                         _context.prev = 8;
@@ -754,10 +759,10 @@ class ProjectController {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_project_model__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_task_model__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_project_model__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_task_model__ = __webpack_require__(2);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -773,36 +778,41 @@ class TaskController {
         var _this = this;
 
         return _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator___default.a.mark(function _callee() {
-            var task;
+            var project, task;
             return __WEBPACK_IMPORTED_MODULE_0_D_My_Projects_Angular_2_Angular_Todo_new_backend_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
                     case 0:
-                        _context.prev = 0;
-                        _context.next = 3;
+                        _context.next = 2;
+                        return TaskController.verifyProject(ctx);
+
+                    case 2:
+                        project = _context.sent;
+                        _context.prev = 3;
+                        _context.next = 6;
                         return __WEBPACK_IMPORTED_MODULE_2__models_task_model__["a" /* default */].create({
                             name: ctx.request.body.name,
                             project_id: ctx.request.body.project_id
                         });
 
-                    case 3:
+                    case 6:
                         task = _context.sent;
 
                         ctx.body = task;
-                        _context.next = 11;
+                        _context.next = 14;
                         break;
 
-                    case 7:
-                        _context.prev = 7;
-                        _context.t0 = _context['catch'](0);
+                    case 10:
+                        _context.prev = 10;
+                        _context.t0 = _context['catch'](3);
 
                         console.log(_context.t0);
                         ctx.throw(400);
 
-                    case 11:
+                    case 14:
                     case 'end':
                         return _context.stop();
                 }
-            }, _callee, _this, [[0, 7]]);
+            }, _callee, _this, [[3, 10]]);
         }))();
     }
     static updateName(ctx) {
@@ -829,9 +839,13 @@ class TaskController {
                     case 5:
                         _context2.prev = 5;
                         _context2.next = 8;
-                        return __WEBPACK_IMPORTED_MODULE_2__models_task_model__["a" /* default */].create({
-                            name: ctx.request.body.name,
-                            project_id: ctx.request.body.project_id
+                        return __WEBPACK_IMPORTED_MODULE_2__models_task_model__["a" /* default */].update({
+                            name: ctx.request.body.name
+                        }, {
+                            where: {
+                                project_id: ctx.request.body.project_id,
+                                id: ctx.request.body.task_id
+                            }
                         });
 
                     case 8:
@@ -1043,7 +1057,7 @@ class TaskController {
                         _context6.next = 2;
                         return __WEBPACK_IMPORTED_MODULE_1__models_project_model__["a" /* default */].findOne({
                             where: {
-                                id: ctx.request.body.project_id,
+                                id: ctx.request.body.project_id || ctx.params.project_id,
                                 user_id: ctx.request.body.id
                             }
                         });
@@ -1067,101 +1081,13 @@ class TaskController {
 /* 21 */
 /***/ (function(module, exports) {
 
-/**
- * CORS middleware for koa2
- *
- * @param {Object} [options]
- *  - {String|Function(ctx)} origin `Access-Control-Allow-Origin`, default is request Origin header
- *  - {Array} exposeHeaders `Access-Control-Expose-Headers`
- *  - {String|Number} maxAge `Access-Control-Max-Age` in seconds
- *  - {Boolean} credentials `Access-Control-Allow-Credentials`
- *  - {Array} allowMethods `Access-Control-Allow-Methods`, default is ['GET', 'PUT', 'POST', 'DELETE', 'HEAD', 'OPTIONS']
- *  - {Array} allowHeaders `Access-Control-Allow-Headers`
- * @return {Function}
- * @api public
- */
-module.exports = function crossOrigin(options = {}) {
-  const defaultOptions = {
-    allowMethods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS']
-  };
+module.exports = require("koa2-cors");
 
-  // set defaultOptions to options
-  for (let key in defaultOptions) {
-    if (!Object.prototype.hasOwnProperty.call(options, key)) {
-      options[key] = defaultOptions[key];
-    }
-  }
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
 
-  return async function (ctx, next) {
-    let origin;
-    if (typeof options.origin === 'function') {
-      origin = options.origin(ctx);
-    } else {
-      origin = options.origin || ctx.get('Origin') || '*';
-    }
-    if (!origin) {
-      return await next();
-    }
-
-    // Access-Control-Allow-Origin
-    ctx.set('Access-Control-Allow-Origin', origin);
-
-    if (ctx.method === 'OPTIONS') {
-      // Preflight Request
-      if (!ctx.get('Access-Control-Request-Method')) {
-        return await next();
-      }
-
-      // Access-Control-Max-Age
-      if (options.maxAge) {
-        ctx.set('Access-Control-Max-Age', String(options.maxAge));
-      }
-
-      // Access-Control-Allow-Credentials
-      if (options.credentials === true) {
-        // When used as part of a response to a preflight request,
-        // this indicates whether or not the actual request can be made using credentials.
-        ctx.set('Access-Control-Allow-Credentials', 'true');
-      }
-
-      // Access-Control-Allow-Methods
-      if (options.allowMethods) {
-        ctx.set('Access-Control-Allow-Methods', options.allowMethods.join(','));
-      }
-
-      // Access-Control-Allow-Headers
-      if (options.allowHeaders) {
-        ctx.set('Access-Control-Allow-Headers', options.allowHeaders.join(','));
-      } else {
-        ctx.set('Access-Control-Allow-Headers', ctx.get('Access-Control-Request-Headers'));
-      }
-
-      ctx.status = 204; // No Content
-    } else {
-      // Request
-      // Access-Control-Allow-Credentials
-      if (options.credentials === true) {
-        if (origin === '*') {
-          // `credentials` can't be true when the `origin` is set to `*`
-          ctx.remove('Access-Control-Allow-Credentials');
-        } else {
-          ctx.set('Access-Control-Allow-Credentials', 'true');
-        }
-      }
-
-      // Access-Control-Expose-Headers
-      if (options.exposeHeaders) {
-        ctx.set('Access-Control-Expose-Headers', options.exposeHeaders.join(','));
-      }
-
-      try {
-        await next();
-      } catch (err) {
-        throw err;
-      }
-    }
-  };
-};
+module.exports = require("koa-static");
 
 /***/ })
 /******/ ]);
