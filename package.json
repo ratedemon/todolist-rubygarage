@@ -9,7 +9,7 @@
     "build" : "cd frontend && npm install && ng build --prod --env=prod",
     "install": "(cd new_backend && npm install) && (cd frontend && npm install)",
     "start:prod" : "cd new_backend && npm run start:prod",
-    "heroku-postbuild" : "npm run build"
+    "heroku-postbuild" : "npm install -g @angular/cli && npm run build"
   },
   "dependencies": {
     "concurrently": "3.5.1"
