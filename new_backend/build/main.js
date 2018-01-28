@@ -216,14 +216,25 @@ const User = __WEBPACK_IMPORTED_MODULE_1__db_js__["a" /* default */].define('use
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dotenv__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_dotenv___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_dotenv__);
 
 
-const db = new __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
+
+__WEBPACK_IMPORTED_MODULE_1_dotenv___default.a.config();
+
+const dbString = process.env.DATABASE_URL || `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
+const ssl = !!process.env.DATABASE_URL;
+console.log(dbString, ssl);
+const db = new __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a(dbString, {
+  dialectOptions: { ssl }
+});
+/*const db = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
   dialect: 'postgres',
   host: process.env.DB_HOST,
   port: process.env.DB_PORT
 });
-
+*/
 // db.authenticate().then(function(errors) { console.log(errors) });
 
 db.sync().then(() => {
