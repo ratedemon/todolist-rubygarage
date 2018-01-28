@@ -11,6 +11,7 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import {DataService} from './shared/data.service';
 import {LoginService} from './shared/login.service';
+import { AuthService } from './shared/auth.service';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -51,7 +52,7 @@ import {createTranslateLoader} from './shared/translateLoader';
   exports:[
     TranslateModule
   ],
-  providers: [DataService, LoginService],
+  providers: [DataService, LoginService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

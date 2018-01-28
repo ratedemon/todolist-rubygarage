@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../shared/login.service';
+import {AuthService} from '../shared/auth.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -12,17 +13,39 @@ export class RegisterPageComponent implements OnInit {
   private email: string = "";
   private password: string = "";
   private repeatPassword: string = "";
-  constructor(private loginService: LoginService, private router: Router) { }
+  private isSending: boolean = false;
+  private message: string = "";
+  private status:number = 0;
+  constructor(private loginService: LoginService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
   }
-  loginForm(name, mail, pass){
-    this.loginService.registerUser(name, mail, pass).then(data=>{
+  loginForm(name:string, mail:string, pass:string){
+    this.isSending = true;
+    this.authService.register(name, mail, pass).subscribe(res => {
+      this.isSending = false;
       this.fullName = "";
       this.email = "";
       this.password = "";
       this.repeatPassword = "";
-      this.router.navigate(['']);
-    }).catch(err=>console.log(`Error: ${err}`));
+      this.message = "All OK! You can come in!";
+      // console.log(res);
+      this.status = 1;
+      setTimeout(()=>{
+        this.router.navigate(['']);
+      }, 5000);
+    },err=>{
+      this.isSending = false;
+      this.message = "This email has been registered";
+      this.status = 2;
+      console.log(err);
+    });
+    // this.loginService.registerUser(name, mail, pass).then(data=>{
+    //   this.fullName = "";
+    //   this.email = "";
+    //   this.password = "";
+    //   this.repeatPassword = "";
+    //   this.router.navigate(['']);
+    // }).catch(err=>console.log(`Error: ${err}`));
   }
 }

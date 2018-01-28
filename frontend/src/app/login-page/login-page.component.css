@@ -31,3 +31,18 @@
   width: 200px;
   margin: 0 1em;
 }
+.main__box .card-panel{
+  position: relative;
+}
+.main__box .loader{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(209, 209, 209, .35);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

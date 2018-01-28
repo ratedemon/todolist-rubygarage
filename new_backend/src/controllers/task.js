@@ -6,8 +6,8 @@ import Task from '../models/task/model';
 
 export default class TaskController{
     static async create(ctx){
-        const project = await TaskController.verifyProject(ctx);
-        if(!project) return ctx.throw(403);
+        // const project = await TaskController.verifyProject(ctx);
+        // if(!project) return ctx.throw(403);
         try{
             const task = await Task.create({
                 name: ctx.request.body.name,

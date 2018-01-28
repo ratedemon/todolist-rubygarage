@@ -2,10 +2,12 @@ import Koa from 'koa';
 import logger from 'koa-morgan';
 import env from 'dotenv';
 import {routes, allowedMethods} from './router';
+import cors from 'koa2-cors';
 
 env.config();
 
 const app = new Koa();
+app.use(cors());
 app.use(routes());
 
 app.use(allowedMethods());

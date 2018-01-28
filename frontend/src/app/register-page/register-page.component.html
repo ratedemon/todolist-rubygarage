@@ -1,36 +1,96 @@
 <div class="container main__box">
-    <h4 class="col s12 main__title">
-      Register
-    </h4>
-    <form class="col s12 form" #myForm="ngForm" novalidate (ngSubmit)="loginForm(fullName,email, password)" enctype="multipart/form-data">
-      <div class="row">
-        <div class="input-field col col s12 l6 offset-l3">
-          <input id="fullname" type="text" [(ngModel)]="fullName" required name="fullname" class="validate">
-          <label for="fullname" data-error="wrong" data-success="right">Full Name</label>
+    <div class="row box_center">
+        <div class="col s12 m8 l6">
+            <div class="card-panel hoverable">
+                <div class="row">
+                    <h4 class="col s12 main__title">
+                        Register
+                    </h4>
+                    <form class="col s12 form" #myForm="ngForm" novalidate
+                          (ngSubmit)="loginForm(fullName,email, password)" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="input-field col col s12">
+                                <input id="fullname" type="text" [(ngModel)]="fullName" required name="fullname"
+                                       class="validate">
+                                <label for="fullname" data-error="wrong" data-success="right">Full Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col col s12">
+                                <input id="email" type="email" [(ngModel)]="email" required name="email"
+                                       class="validate">
+                                <label for="email" data-error="wrong" data-success="right">Email</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col col s12">
+                                <input id="password" type="password" class="validate" [(ngModel)]="password" required
+                                       name="password">
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col col s12">
+                                <input id="repeatPassword" type="password" class="validate" [(ngModel)]="repeatPassword"
+                                       required name="repeatPassword">
+                                <label for="repeatPassword">Repeat Your Password</label>
+                            </div>
+                        </div>
+                        <div *ngIf="status" class="center-align">
+                            <span [ngClass]="{'green-text':status == 1, 'red-text': status==2}">{{message}}</span>
+                        </div>
+                        <div class="row main__btn">
+                            <button class="btn waves-effect waves-light" type="submit" name="action"
+                                    [disabled]="password !== repeatPassword || myForm.invalid">Send
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="loader" *ngIf="isSending">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-red">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-yellow">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-green">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col col s12 l6 offset-l3">
-          <input id="email" type="email" [(ngModel)]="email" required name="email" class="validate">
-          <label for="email" data-error="wrong" data-success="right">Email</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col col s12 l6 offset-l3">
-          <input id="password" type="password" class="validate" [(ngModel)]="password" required name="password">
-          <label for="password">Password</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col col s12 l6 offset-l3">
-          <input id="repeatPassword" type="password" class="validate" [(ngModel)]="repeatPassword" required name="repeatPassword" >
-          <label for="repeatPassword">Repeat Your Password</label>
-        </div>
-      </div>
-      <div class="row main__btn">
-         <button class="btn waves-effect waves-light" type="submit" name="action" [disabled]="password !== repeatPassword || myForm.invalid">Send
-          <i class="material-icons right">send</i>
-        </button>
-      </div>
-    </form>
+    </div>
 </div>

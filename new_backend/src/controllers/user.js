@@ -22,7 +22,7 @@ export default class UserController{
                 }, process.env.JWT_KEY, {
                     expiresIn: "3h"
                 });
-                return ctx.body = token;
+                return ctx.body = {token: token};
             } else {
                 return ctx.throw(409);
             }
@@ -39,8 +39,7 @@ export default class UserController{
                 email: ctx.request.body.email,
                 password: hash
             });
-            console.log(user);
-            return ctx.body = user;
+            return ctx.status = 200;
         } catch (e) {
             console.log(e);
             return ctx.throw(500, {
