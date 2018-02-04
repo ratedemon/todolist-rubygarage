@@ -6,7 +6,7 @@
   },
   "scripts": {
     "start" : "concurrently \"cd frontend && npm install\" \"cd new_backend && npm install\"",
-    "build" : "cd frontend && ng build --prod --aot=false --env=prod",
+    "build" : "cd frontend && npm run prod",
     "install": "(cd new_backend && npm install) && (cd frontend && npm install)",
     "start:prod" : "cd new_backend && npm run start:prod",
     "heroku-postbuild" : "npm run build"
