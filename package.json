@@ -8,7 +8,8 @@
     "start" : "concurrently \"cd frontend && npm install\" \"cd new_backend && npm install\"",
     "build" : "cd frontend && npm install",
     "install": "(cd new_backend && npm install) && (cd frontend && npm install)",
-    "start:prod" : "cd new_backend && npm run start:prod"
+    "start:prod" : "cd new_backend && npm run start:prod",
+    "heroku-postbuild" : "npm run build"
   },
   "dependencies": {
     "concurrently": "3.5.1"
