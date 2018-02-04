@@ -11,7 +11,7 @@ import {NewDataService} from '../shared/new-data.service';
 export class TodoFormComponent{
   @Input() projects;
   private title = "";
-  private formActive: boolean = false;
+  formActive: boolean = false;
   constructor(private newDataService: NewDataService) { }
 
   show(){

@@ -10,7 +10,7 @@ import {NewDataService} from '../shared/new-data.service';
 export class TodoProjectHeaderComponent{
   @Input() item;
   @Input() projects;
-  private changed = false;
+  changed = false;
   constructor(private newDataService: NewDataService) { }
 
   onRewrite(project, input: HTMLInputElement){
