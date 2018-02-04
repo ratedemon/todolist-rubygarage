@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://rubytodoapp.herokuapp.com'
+  apiUrl: 'http://localhost:8181'
 };
