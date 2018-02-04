@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "backpack",
     "prod": "backpack build",
-    "start:prod": "node build/main.js",
-    "postinstall": "npm run dev"
+    "start:prod": "node build/main.js"
   },
   "author": "",
   "license": "ISC",
