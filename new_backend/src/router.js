@@ -8,12 +8,20 @@ import verifyAuth from './middleware/authMiddleware';
 import UserController from './controllers/user';
 import ProjectController from './controllers/project';
 import TaskController from './controllers/task';
+import send from 'koa-send';
 
 env.config();
 
 const router = new Router();
 
 router.use(koaBody());
+if(!!process.env.DATABASE_URL){
+    router.get('/', async ctx =>{
+        ctx.status = 200;
+        console.log(ctx);
+        await send(ctx, __dirname + '/../dist/index.html');
+    });
+}
 
 router.post('/register', UserController.register);
 router.post('/login', UserController.login);
@@ -28,6 +36,13 @@ router.put('/task', verifyAuth, TaskController.updateName);
 router.put('/task/status', verifyAuth, TaskController.changeStatus);
 router.put('/task/position', verifyAuth, TaskController.changePosition);
 router.delete('/project/:project_id/task/:task_id', verifyAuth, TaskController.delete);
+
+if(!!process.env.DATABASE_URL) {
+    router.all('/*', ctx => {
+        ctx.redirect('/');
+        ctx.status = 301;
+    });
+}
 
 export function routes() {
     return router.routes();

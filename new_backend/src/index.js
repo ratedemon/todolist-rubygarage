@@ -10,7 +10,6 @@ env.config();
 const app = new Koa();
 app.use(cors());
 app.use(serve(__dirname + '/../dist'));
-console.log(__dirname + '/../dist');
 app.use(routes());
 
 app.use(allowedMethods());

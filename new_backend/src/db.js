@@ -7,19 +7,17 @@ const dbString = process.env.DATABASE_URL || `postgres://${process.env.DB_USER}:
 const ssl = !!process.env.DATABASE_URL;
 console.log(dbString, ssl);
 const db = new Sequelize(dbString, {
-    dialectOptions: {ssl}
+    dialectOptions: {ssl},
+    logging: true
 });
-/*const db = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
-  dialect: 'postgres',
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT
-});
-*/
-// db.authenticate().then(function(errors) { console.log(errors) });
 
-db.sync()
-  .then(() => {
-    console.log('DB synced');
-  });
+if(!!process.env.DATABASE_URL){
+    db.sync()
+      .then(() => {
+        console.log('DB synced');
+      });
+}else{
+    console.log('DB connected');
+}
 
 export default db;

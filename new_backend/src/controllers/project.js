@@ -3,15 +3,18 @@
  */
 import Project from '../models/project/model';
 import Task from '../models/task/model';
+import db from '../db';
 
 export default class ProjectController{
     static async create(ctx){
         console.log(ctx.request.body);
         try{
-            const project = await Project.create({
+            let project = await Project.create({
                 name: ctx.request.body.name,
                 user_id: ctx.request.body.id
             });
+            project.dataValues.ProjectTasks = [];
+            console.log(project);
             return ctx.body = {project: project};
         }catch(e){
             console.log(e);
@@ -61,7 +64,10 @@ export default class ProjectController{
                 }
             ],
             order: [
-                ['id', 'DESC']
+                ['id', 'DESC'],
+                // [db.models.Project,{ model: db.models.Task, as: 'ProjectTasks' }, 'position', 'asc'],
+                // [ db.Task, 'position', 'ASC']
+                [ db.literal('"ProjectTasks".'), 'position', 'ASC']
             ]
         });
         console.log(projects);

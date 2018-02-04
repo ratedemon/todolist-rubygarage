@@ -23,6 +23,7 @@ export class NewDataService {
     this.http.get(`${this.url}/projects`, {headers:this.createAuthorizationHeader()}).map(this.parseData).subscribe(res=>{
       this.projects.next(res);
     }, err=>{
+      localStorage.clear();
       this.router.navigate(['']);
     });
   }
@@ -39,7 +40,7 @@ export class NewDataService {
   }
   addTask(name: string, project_id: number){
     let body = JSON.stringify({name: name, project_id: project_id});
-    return this.http.post(`${this.url}/task`, body, {headers: this.createAuthorizationHeader()});
+    return this.http.post(`${this.url}/task`, body, {headers: this.createAuthorizationHeader()}).map(this.parseData);
   }
   toggleTask(project, task){
     let body = JSON.stringify({status: !task.status, project_id: project.id, task_id: task.id});

@@ -23,6 +23,7 @@ export class TodoFormComponent{
     }
     this.newDataService.createProject(input.value).subscribe(res=>{
       this.projects.unshift(res.project);
+      this.title = '';
       this.show();
     }, err => console.log(err));
   }

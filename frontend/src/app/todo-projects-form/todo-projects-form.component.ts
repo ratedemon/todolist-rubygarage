@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Project} from '../shared/project';
 import {NewDataService} from '../shared/new-data.service';
+import {Response} from '@angular/http';
 
 @Component({
   selector: 'todo-projects-form',
@@ -17,14 +18,15 @@ export class TodoProjectsFormComponent{
     if(!input.value.trim()){
       return;
     }
-    this.newDataService.addTask(input.value, project.id).subscribe(data => {
+    this.newDataService.addTask(input.value, project.id).subscribe((data:Response) => {
       let index = 0;
+      console.log(data);
       this.projects.forEach((el, i) => {
         if(el.id == project.id){
           index = i;
         }
       });
-      this.projects[index].ProjectTasks.push({name: input.value, status: false});
+      this.projects[index].ProjectTasks.push(data);
       this.task = "";
     },err => console.log(err));
   }

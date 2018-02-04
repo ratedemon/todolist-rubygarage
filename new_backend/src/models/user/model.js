@@ -21,4 +21,5 @@ const User = db.define('users', {
   },
   password: Sequelize.STRING(70)
 });
+
 export default User;

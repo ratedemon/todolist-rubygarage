@@ -12,7 +12,7 @@ export default class UserController{
                 email: ctx.request.body.email
             }
         });
-        if(!user) return ctx.throw(404);
+        if(!user) return ctx.status = 404;
         try{
             const compare = await bcrypt.compare(ctx.request.body.password, user.password);
             if(compare){
@@ -24,11 +24,11 @@ export default class UserController{
                 });
                 return ctx.body = {token: token};
             } else {
-                return ctx.throw(409);
+                return ctx.status = 403;
             }
         }catch(e){
             console.log(e);
-            return ctx.throw(403);
+            return ctx.status = 403;
         }
     }
     static async register(ctx){
@@ -42,9 +42,7 @@ export default class UserController{
             return ctx.status = 200;
         } catch (e) {
             console.log(e);
-            return ctx.throw(500, {
-                error: e
-            });
+            return ctx.status = 500;
         }
     }
 }
