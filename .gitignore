@@ -14,7 +14,10 @@
 database.sql
 /new_backend/.env
 /new_backend/build
+/new_backend/build/
 /new_backend/dist
+/new_backend/dist/
+
 
 # IDEs and editors
 /.idea
