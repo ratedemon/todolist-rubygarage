@@ -100,4 +100,31 @@ export default class UserController{
             ctx.status = 500;
         }
     }
+    static async changePassword(ctx){
+        const user = await User.findOne({
+            where: {
+                email: ctx.request.body.email
+            }
+        });
+        if(!user) return ctx.status = 404;
+        try{
+            const compare = await bcrypt.compare(ctx.request.body.old_password, user.password);
+            if(compare){
+                const hash = await bcrypt.hash(ctx.request.body.new_password, 10);
+                const updateUser = await User.update({
+                    password: hash
+                    },{
+                    where: {
+                        email: ctx.request.body.email
+                    }
+                });
+                return ctx.status = 200;
+            } else {
+                return ctx.status = 403;
+            }
+        }catch(e){
+            console.log(e);
+            return ctx.status = 403;
+        }
+    }
 }

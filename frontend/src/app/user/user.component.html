@@ -1,0 +1,47 @@
+<div class="container main__box">
+  <div class="card-panel hoverable">
+    <div class="row">
+      <h4 class="col s12 main__title">
+        Change password
+      </h4>
+      <form class="col s12 form" #myForm="ngForm" novalidate (ngSubmit)="updatePassword(old_password, new_password)">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="old_password" type="password" [(ngModel)]="old_password" required name="old_password">
+            <label for="old_password">Current password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="new_password" type="password" [(ngModel)]="new_password" required name="new_password">
+            <label for="new_password">New Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="repeat_password" type="password" [(ngModel)]="repeat_password" required name="repeat_password">
+            <label for="repeat_password">Repeat New Password</label>
+          </div>
+        </div>
+        <div class="row" *ngIf="!!errorMessage">
+          <strong class="col s12 red-text center-align">
+            {{errorMessage}}
+          </strong>
+        </div>
+        <div class="row" *ngIf="!!successMessage">
+          <strong class="col s12 green-text center-align">
+            {{successMessage}}
+          </strong>
+        </div>
+        <div class="row main__btn">
+          <a routerLink="/projects" class="btn waves-effect waves-light register__btn light-green darken-3">
+            <i class="material-icons left">arrow_back</i>Back
+          </a>
+          <button class="btn waves-effect waves-light" type="submit" name="action" [disabled]="myForm.invalid || new_password.length<6 || (new_password != repeat_password)">Save
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -10,13 +10,13 @@ export class AuthService {
   constructor(private http: Http) { }
   login(email: string, password: string){
       let headers = new Headers();
-      this.createAuthorizationHeader(headers);
+      this.createHeaders(headers);
       let body = JSON.stringify({'email' : email, 'password' : password});
       return this.http.post(`${this.url}/login`, body, {headers: headers});
   }
   register(name: string, email: string, password: string){
       let headers = new Headers();
-      this.createAuthorizationHeader(headers);
+      this.createHeaders(headers);
       let body = JSON.stringify({'name': name,'email' : email, 'password' : password});
       return this.http.post(`${this.url}/register`, body, {headers: headers});
   }
@@ -28,11 +28,21 @@ export class AuthService {
   }
   forgotPassword(email: string){
       let headers = new Headers();
-      this.createAuthorizationHeader(headers);
+      this.createHeaders(headers);
       let body = JSON.stringify({email: email});
       return this.http.post(`${this.url}/forgot`, body, {headers: headers});
   }
-  private createAuthorizationHeader(headers: Headers){
+  updatePassword(old_password:string, new_password: string){
+      let body = JSON.stringify({old_password: old_password, new_password: new_password});
+      return this.http.put(`${this.url}/change-password`, body, {headers: this.createAuthorizationHeaders()})
+  }
+  private createHeaders(headers: Headers){
       headers.append("Content-Type", "application/json" );
+  }
+  private createAuthorizationHeaders(){
+      let headers = new Headers();
+      headers.append("Content-Type", "application/json" );
+      headers.append('Authorization', `Bearer ${localStorage.getItem('session_token')}`);
+      return headers;
   }
 }

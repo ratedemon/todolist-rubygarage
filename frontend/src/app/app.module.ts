@@ -24,6 +24,7 @@ import { TodoTaskComponent } from './todo-task/todo-task.component';
 import { TodoProjectHeaderComponent } from './todo-project-header/todo-project-header.component';
 import {createTranslateLoader} from './shared/translateLoader';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     TodoProjectsFormComponent,
     TodoTaskComponent,
     TodoProjectHeaderComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(appRouter), FormsModule, HttpModule, BrowserAnimationsModule, TranslateModule.forRoot({
