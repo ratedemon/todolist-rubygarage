@@ -26,6 +26,12 @@ export class AuthService {
         resolve(true);
       });
   }
+  forgotPassword(email: string){
+      let headers = new Headers();
+      this.createAuthorizationHeader(headers);
+      let body = JSON.stringify({email: email});
+      return this.http.post(`${this.url}/forgot`, body, {headers: headers});
+  }
   private createAuthorizationHeader(headers: Headers){
       headers.append("Content-Type", "application/json" );
   }

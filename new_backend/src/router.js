@@ -25,6 +25,7 @@ if(!!process.env.DATABASE_URL){
 
 router.post('/register', UserController.register);
 router.post('/login', UserController.login);
+router.post('/forgot', UserController.forgot);
 
 router.get('/projects', verifyAuth, ProjectController.getProjectsWithTasks);
 router.post('/project', verifyAuth, ProjectController.create);

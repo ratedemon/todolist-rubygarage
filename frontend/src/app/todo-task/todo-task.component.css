@@ -11,16 +11,24 @@
 }
 .task__title{
   /*flex: 1;*/
-  width: 79.5%;
+  /*width: 79.5%;*/
+  width: 86%;
   background: transparent;
   border: none;
   font-size: 1.2em;
   margin: 0.15em .25em .15em .05em!important;
   padding: .15em 0 .15em .2em;
-  height: 2em!important;
+  /*height: 2em!important;*/
+  resize: vertical;
+  height: 1.35em;
+  min-height: 0;
+  line-height: normal;
   /*border-left: 1px solid pink;*/
   color: #26a69a;
   transition: all .35s ease;
+}
+.task__title:hover, .task__title:focus{
+  outline: none;
 }
 .task__title:disabled{
   color: #424242!important;
@@ -29,9 +37,11 @@
   text-decoration: line-through;
 }
 .task__interaction{
-  width: 15.5%;
+  /*width: 15.5%;*/
+  width: 9%;
   display: flex;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
+  justify-content: space-around;
   align-items: center;
   border-left: 1px solid lightgray;
 }
@@ -47,10 +57,16 @@
   color: gray;
 }
 .task__interaction > *:first-child{
-  border-right: 1px solid lightgray;
+  /*border-right: 1px solid lightgray;*/
   /*margin-left: 15%;*/
 }
 .task__interaction > *:last-child{
-  border-left: 1px solid lightgray;
+  /*border-left: 1px solid lightgray;*/
   /*margin-right: 15%;*/
+}
+@media only screen and (max-width: 600px) {
+  .task__interaction{
+    width: 16%;
+    justify-content: space-around;
+  }
 }

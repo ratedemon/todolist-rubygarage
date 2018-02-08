@@ -2,7 +2,7 @@
   <button class="waves-effect waves-light btn foot__add" (click)="show()"><i class="material-icons">add</i>Add TODO List</button>
   <form #myForm="ngForm" novalidate class="footer__form" *ngIf="formActive" [@formAnim]>
     <div class="form__action card">
-      <input type="text" class="action__input" name="name" [(ngModel)]="title" #userText placeholder="Add Your Task Title">
+      <input type="text" class="action__input" name="name" [(ngModel)]="title" #userText placeholder="Add Title To New Project">
       <button type="submit" class="action__submit" (click)="addTitle(userText)">Add Title</button>
     </div>
     <i class="material-icons clear" (click)="show()">clear</i>

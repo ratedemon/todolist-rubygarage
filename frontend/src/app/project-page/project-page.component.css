@@ -12,3 +12,9 @@ todo-project{
   width: 80%;
   /*height: 100%;*/
 }
+@media only screen and (max-width: 600px) {
+  todo-project{
+    width: 100%;
+    padding: .25rem .5rem;
+  }
+}

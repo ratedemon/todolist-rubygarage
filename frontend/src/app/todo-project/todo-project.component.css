@@ -71,3 +71,8 @@ todo-task{
   font-size: 1.2em;
   font-weight: bold;
 }
+@media only screen and (max-width: 600px) {
+  .main__list{
+    width: 100%;
+  }
+}

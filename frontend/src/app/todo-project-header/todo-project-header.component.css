@@ -29,3 +29,14 @@
 .material-icons:first-child{
   width: 4%;
 }
+@media only screen and (max-width: 600px) {
+  .material-icons{
+    width: 7%;
+  }
+  .material-icons:first-child{
+    width: 7%;
+  }
+  .head__input{
+    font-size: 16px!important;
+  }
+}

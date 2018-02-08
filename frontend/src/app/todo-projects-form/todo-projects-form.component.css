@@ -40,3 +40,11 @@
   outline: none;
   background: #44c455;
 }
+@media only screen and (max-width: 600px) {
+  .list__form .material-icons{
+    width: 7%;
+  }
+  .list__form .form__input{
+    font-size: 1.1rem;
+  }
+}
