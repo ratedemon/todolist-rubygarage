@@ -58,13 +58,29 @@ export default class UserController{
         });
         if(!user) return ctx.status = 404;
         try{
-            let transporter = nodemailer.createTransport({
-                service: process.env.SMTP_SERVICE,
-                auth: {
-                    user: process.env.SMTP_EMAIL,
-                    pass: process.env.SMTP_PASS
-                }
-            });
+            if(process.env.NODE_ENV == 'production'){
+                let transporter = nodemailer.createTransport({
+                    host: 'smtp.gmail.com',
+                    port: 465,
+                    secure: true,
+                    auth: {
+                        user: process.env.SMTP_EMAIL,
+                        pass: process.env.SMTP_PASS
+                    },
+                    tls: {
+                        // do not fail on invalid certs
+                        rejectUnauthorized: false
+                    }
+                })
+            }else{
+                let transporter = nodemailer.createTransport({
+                    service: process.env.SMTP_SERVICE,
+                    auth: {
+                        user: process.env.SMTP_EMAIL,
+                        pass: process.env.SMTP_PASS
+                    }
+                });
+            }
 
             const str = randomstring.generate(10);
             const hash = await bcrypt.hash(str, 10);

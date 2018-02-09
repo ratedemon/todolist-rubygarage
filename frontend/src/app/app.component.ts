@@ -17,7 +17,7 @@ export class AppComponent {
   }
 
   isAuth(){
-    return (this.router.url !== '/register' && this.router.url !== '/');
+    return (this.router.url !== '/register' && this.router.url !== '/' && this.router.url !== '/forgot');
   }
 
   logout(){
