@@ -110,6 +110,7 @@ export default class UserController{
                     return ctx.status = 500;
                 }
                 console.log('Message sent: %s', info.messageId);
+                ctx.status = 200;
             });
         }catch(err){
             console.log(err);
