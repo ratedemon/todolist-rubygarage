@@ -10,10 +10,14 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class AppComponent {
   constructor(private router: Router, private translate: TranslateService, private authService: AuthService){
-    translate.addLangs(['en', 'ru']);
-    translate.setDefaultLang('en');
-    let browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|ru/) ? browserLang : 'en');
+    // translate.addLangs(['en', 'ru']);
+    // translate.setDefaultLang('en');
+    // let browserLang = translate.getBrowserLang();
+    // translate.use(browserLang.match(/en|ru/) ? browserLang : 'en');
+  }
+
+  isAuth(){
+    return (this.router.url !== '/register' && this.router.url !== '/');
   }
 
   logout(){

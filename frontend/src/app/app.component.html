@@ -1,13 +1,13 @@
 <header class="header row card-panel light-blue darken-3 waves-effect waves-light">
   <div class="container header__box">
-    <a routerLink="settings" class="col s2 l3 valign-wrapper">
+    <a routerLink="settings" *ngIf="isAuth()" class="col s2 l3 valign-wrapper">
       <i class="material-icons white-text">person</i>
     </a>
     <div class="col s8 l6 header__title">
       <h1 class="header__name"><a class="white-text" routerLink="/">Simple Todo List</a></h1>
       <!--<h6 class="header__description white-text" (click)="logout()">from ruby garage</h6>-->
     </div>
-    <div class="col s2 l3 valign-wrapper">
+    <div class="col s2 l3 valign-wrapper" *ngIf="isAuth()">
       <i class="material-icons white-text" (click)="logout()">exit_to_app</i>
     </div>
   </div>
