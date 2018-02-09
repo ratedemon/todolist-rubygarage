@@ -82,17 +82,6 @@ export default class UserController{
                 });
             }
 
-            const str = randomstring.generate(10);
-            const hash = await bcrypt.hash(str, 10);
-            console.log(str);
-            const updateUser = await User.update({
-                password: hash
-            },{
-                where: {
-                    email: ctx.request.body.email
-                }
-            });
-
             let mailOptions = {
                 from: `"RubyTodo" <${process.env.SMTP_EMAIL}>`,
                 to: ctx.request.body.email,
@@ -110,8 +99,19 @@ export default class UserController{
                     return ctx.status = 500;
                 }
                 console.log('Message sent: %s', info.messageId);
-                ctx.status = 200;
             });
+
+            const str = randomstring.generate(10);
+            const hash = await bcrypt.hash(str, 10);
+            console.log(str);
+            const updateUser = await User.update({
+                password: hash
+            },{
+                where: {
+                    email: ctx.request.body.email
+                }
+            });
+            ctx.status = 200;
         }catch(err){
             console.log(err);
             ctx.status = 500;
