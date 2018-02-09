@@ -82,6 +82,7 @@ export default class UserController{
                 });
             }
 
+            const str = randomstring.generate(10);
             let mailOptions = {
                 from: `"RubyTodo" <${process.env.SMTP_EMAIL}>`,
                 to: ctx.request.body.email,
@@ -101,7 +102,6 @@ export default class UserController{
                 console.log('Message sent: %s', info.messageId);
             });
 
-            const str = randomstring.generate(10);
             const hash = await bcrypt.hash(str, 10);
             console.log(str);
             const updateUser = await User.update({
