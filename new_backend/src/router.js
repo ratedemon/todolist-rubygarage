@@ -9,6 +9,7 @@ import UserController from './controllers/user';
 import ProjectController from './controllers/project';
 import TaskController from './controllers/task';
 import send from 'koa-send';
+import {checkLogin, checkRegister} from './middleware/validator';
 
 env.config();
 
@@ -23,8 +24,9 @@ if(!!process.env.DATABASE_URL){
     });
 }
 
-router.post('/register', UserController.register);
-router.post('/login', UserController.login);
+router.post('/register', checkRegister
+    , UserController.register);
+router.post('/login', checkLogin, UserController.login);
 router.post('/forgot', UserController.forgot);
 router.put('/change-password', verifyAuth, UserController.changePassword);
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../shared/auth.service';
 import {Router} from '@angular/router';
-import { AbstractControl, FormGroup, FormControl, Validators} from '@angular/forms';
+import { ValidatorFn, AbstractControl, FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-register-page',
@@ -18,18 +18,20 @@ export class RegisterPageComponent implements OnInit {
     this.registerForm = new FormGroup({
       "email" : new FormControl("", [Validators.required, Validators.pattern("[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}")]),
       "name" : new FormControl("", [Validators.required, Validators.minLength(2)]),
+      // "passwords" : new FormGroup({
+      //   "password" : new FormControl("", [Validators.required, Validators.minLength(6)]),
+      //   "repeat_password" : new FormControl("", [Validators.required, Validators.minLength(6)])
+      // }, {validator: this.passwordConfirming})
       "password" : new FormControl("", [Validators.required, Validators.minLength(6)]),
       "repeat_password" : new FormControl("", [Validators.required, Validators.minLength(6)])
-    });
+    }, this.passwordMatchValidator);
   }
 
   ngOnInit() {
   }
 
-  passwordConfirming(c: AbstractControl): { invalid: boolean } {
-    if (c.get('password').value !== c.get('confirm_password').value) {
-      return {invalid: true};
-    }
+  passwordMatchValidator(g: FormGroup) {
+    return g.get('password').value === g.get('repeat_password').value ? null : {'mismatch': true};
   }
 
   loginForm(){

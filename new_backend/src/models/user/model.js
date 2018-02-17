@@ -19,7 +19,7 @@ const User = db.define('users', {
     notEmpty: true,
     unique: true
   },
-  password: Sequelize.STRING(70)
+  password: Sequelize.STRING(80)
 });
 
 export default User;
