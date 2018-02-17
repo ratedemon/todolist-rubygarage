@@ -72,3 +72,11 @@
   outline: none;
   background: #44c455;
 }
+.material-icons.clear{
+  cursor: pointer;
+  color: black;
+  transition: all .4s ease;
+}
+.material-icons.clear:hover{
+  color: red;
+}

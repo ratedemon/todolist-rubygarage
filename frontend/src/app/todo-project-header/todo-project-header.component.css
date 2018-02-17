@@ -25,6 +25,7 @@
   transition: all .4s ease;
   width: 3%;
   text-align: center;
+  user-select: none;
 }
 .material-icons:first-child{
   width: 4%;

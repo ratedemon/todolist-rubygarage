@@ -28,6 +28,9 @@ export class TodoTaskComponent {
     }, err=>console.log(err));
   }
   rewriteTask(project: Project, task: Task, input: HTMLInputElement){
+    if(!input.value.trim().length){
+      return;
+    }
     this.newDataService.renameTask(project, task, input.value).subscribe(res=>{
       this.changed = !this.changed;
     }, err => console.log(err));

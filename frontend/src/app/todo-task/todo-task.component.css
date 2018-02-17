@@ -64,6 +64,9 @@
   /*border-left: 1px solid lightgray;*/
   /*margin-right: 15%;*/
 }
+.material-icons{
+  user-select: none;
+}
 @media only screen and (max-width: 600px) {
   .task__interaction{
     width: 16%;

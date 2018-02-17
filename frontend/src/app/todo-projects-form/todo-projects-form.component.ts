@@ -15,12 +15,11 @@ export class TodoProjectsFormComponent{
   constructor(private newDataService: NewDataService) { }
 
   addTask(input: HTMLInputElement, project){
-    if(!input.value.trim()){
+    if(!input.value.trim().length){
       return;
     }
     this.newDataService.addTask(input.value, project.id).subscribe((data:Response) => {
       let index = 0;
-      console.log(data);
       this.projects.forEach((el, i) => {
         if(el.id == project.id){
           index = i;

@@ -18,7 +18,7 @@ export class TodoFormComponent{
     this.formActive = !this.formActive;
   }
   addTitle(input: HTMLInputElement){
-    if(!input.value.trim()){
+    if(!input.value.trim().length){
       return;
     }
     this.newDataService.createProject(input.value).subscribe(res=>{
