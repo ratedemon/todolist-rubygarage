@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
+import { ReactiveFormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AuthService } from './shared/auth.service';
@@ -41,7 +42,7 @@ import { UserComponent } from './user/user.component';
     UserComponent
   ],
   imports: [
-    BrowserModule, RouterModule.forRoot(appRouter), FormsModule, HttpModule, BrowserAnimationsModule, TranslateModule.forRoot({
+    BrowserModule, RouterModule.forRoot(appRouter),ReactiveFormsModule, FormsModule, HttpModule, BrowserAnimationsModule, TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),

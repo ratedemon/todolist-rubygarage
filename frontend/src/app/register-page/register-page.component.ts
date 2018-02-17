@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../shared/auth.service';
 import {Router} from '@angular/router';
+import { AbstractControl, FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-register-page',
@@ -8,25 +9,36 @@ import {Router} from '@angular/router';
   styleUrls: ['./register-page.component.css']
 })
 export class RegisterPageComponent implements OnInit {
-  fullName: string = "";
-  email: string = "";
-  password: string = "";
-  repeatPassword: string = "";
+  registerForm : FormGroup;
+
   isSending: boolean = false;
   message: string = "";
   status:number = 0;
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService) {
+    this.registerForm = new FormGroup({
+      "email" : new FormControl("", [Validators.required, Validators.pattern("[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}")]),
+      "name" : new FormControl("", [Validators.required, Validators.minLength(2)]),
+      "password" : new FormControl("", [Validators.required, Validators.minLength(6)]),
+      "repeat_password" : new FormControl("", [Validators.required, Validators.minLength(6)])
+    });
+  }
 
   ngOnInit() {
   }
-  loginForm(name:string, mail:string, pass:string){
-    this.isSending = true;
-    this.authService.register(name, mail, pass).subscribe(res => {
+
+  passwordConfirming(c: AbstractControl): { invalid: boolean } {
+    if (c.get('password').value !== c.get('confirm_password').value) {
+      return {invalid: true};
+    }
+  }
+
+  loginForm(){
+    console.log(this.registerForm);
+    // return;
+    // this.isSending = true;
+    this.authService.register(this.registerForm.value.name, this.registerForm.value.email, this.registerForm.value.password).subscribe(res => {
       this.isSending = false;
-      this.fullName = "";
-      this.email = "";
-      this.password = "";
-      this.repeatPassword = "";
+      this.registerForm.reset();
       this.message = "All OK! You can come in!";
       // console.log(res);
       this.status = 1;
