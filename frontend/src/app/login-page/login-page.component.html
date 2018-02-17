@@ -2,36 +2,47 @@
     <div class="card-panel hoverable">
         <div class="row">
             <h4 class="col s12 main__title">
-              Login Page
+                Login Page
             </h4>
-            <form class="col s12 form" #myForm="ngForm" novalidate (ngSubmit)="loginWithEmailAndPassword(email, password)">
-              <div class="row">
-                <div class="input-field col s12">
-                  <input id="email" type="email" [(ngModel)]="email" required name="email" class="validate">
-                  <label for="email" data-error="wrong" data-success="right">Email</label>
+            <form class="col s12 form" [formGroup]="loginForm" novalidate (ngSubmit)="loginSubmit()">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="email" formControlName="email" name="email" class="validate">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="col s12 red-text"
+                         *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
+                        Email is not valid
+                    </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input id="password" type="password" class="validate" [(ngModel)]="password" required name="password">
-                  <label for="password">Password</label>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="password" type="password" class="validate" formControlName="password"
+                               name="password">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="col s12 red-text"
+                         *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+                        Minimum length is 6
+                    </div>
                 </div>
-              </div>
                 <div class="row" *ngIf="!!message">
                     <strong class="col s12 red-text center-align">
                         {{message}}
                     </strong>
                 </div>
-              <div class="row main__btn">
-                 <button class="btn waves-effect waves-light" type="submit" name="action" [disabled]="myForm.invalid || password.length<6">Sign
-                  <i class="material-icons right">send</i>
-                </button>
-                <a routerLink="/register" class="btn waves-effect waves-light register__btn light-green darken-3">Register
-                <i class="material-icons right">send</i>
-                </a>
-              </div>
                 <div class="row main__btn">
-                    <a routerLink="/forgot" class="btn waves-effect waves-light register__btn light-green darken-3">Forgot Your Password?
+                    <button class="btn waves-effect waves-light" type="submit" name="action"
+                            [disabled]="loginForm.invalid">Sign
+                        <i class="material-icons right">send</i>
+                    </button>
+                    <a routerLink="/register" class="btn waves-effect waves-light register__btn light-green darken-3">Register
+                        <i class="material-icons right">send</i>
+                    </a>
+                </div>
+                <div class="row main__btn">
+                    <a routerLink="/forgot" class="btn waves-effect waves-light register__btn light-green darken-3">Forgot
+                        Your Password?
                     </a>
                 </div>
             </form>
@@ -41,43 +52,51 @@
                 <div class="spinner-layer spinner-blue">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
-                    </div><div class="gap-patch">
-                    <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
                 </div>
 
                 <div class="spinner-layer spinner-red">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
-                    </div><div class="gap-patch">
-                    <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
                 </div>
 
                 <div class="spinner-layer spinner-yellow">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
-                    </div><div class="gap-patch">
-                    <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
                 </div>
 
                 <div class="spinner-layer spinner-green">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
-                    </div><div class="gap-patch">
-                    <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>
+</div>

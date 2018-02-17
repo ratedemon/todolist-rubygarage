@@ -9,7 +9,8 @@ import UserController from './controllers/user';
 import ProjectController from './controllers/project';
 import TaskController from './controllers/task';
 import send from 'koa-send';
-import {checkLogin, checkRegister} from './middleware/validator';
+import {checkLogin, checkRegister} from './middleware/userValidator';
+import {checkCreateProject, checkGetProject, checkDeleteProject, checkUpdateProject} from './middleware/projectValidator';
 
 env.config();
 
@@ -24,16 +25,15 @@ if(!!process.env.DATABASE_URL){
     });
 }
 
-router.post('/register', checkRegister
-    , UserController.register);
+router.post('/register', checkRegister, UserController.register);
 router.post('/login', checkLogin, UserController.login);
 router.post('/forgot', UserController.forgot);
 router.put('/change-password', verifyAuth, UserController.changePassword);
 
-router.get('/projects', verifyAuth, ProjectController.getProjectsWithTasks);
-router.post('/project', verifyAuth, ProjectController.create);
-router.put('/project', verifyAuth, ProjectController.update);
-router.delete('/project/:id', verifyAuth, ProjectController.delete);
+router.get('/projects', verifyAuth, checkGetProject, ProjectController.getProjectsWithTasks);
+router.post('/project', verifyAuth, checkCreateProject, ProjectController.create);
+router.put('/project', verifyAuth, checkUpdateProject, ProjectController.update);
+router.delete('/project/:id', verifyAuth, checkDeleteProject, ProjectController.delete);
 
 router.post('/task', verifyAuth, TaskController.create);
 router.put('/task', verifyAuth, TaskController.updateName);

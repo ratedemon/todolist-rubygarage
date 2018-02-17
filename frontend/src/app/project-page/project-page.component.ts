@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Project} from '../shared/project';
 import {Router} from '@angular/router';
 import {NewDataService} from '../shared/new-data.service';
 

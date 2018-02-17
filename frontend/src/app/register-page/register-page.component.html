@@ -13,8 +13,7 @@
                                        class="validate">
                                 <label for="fullname" data-error="wrong" data-success="right">Full Name</label>
                             </div>
-                            <div class="col s12 red-text"
-                                 *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].touched">
+                            <div class="col s12 red-text" *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].touched">
                                 Minimum length is 2
                             </div>
                         </div>
@@ -23,8 +22,7 @@
                                 <input id="email" type="email" formControlName="email" name="email">
                                 <label for="email">Email</label>
                             </div>
-                            <div class="col s12 red-text"
-                                 *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
+                            <div class="col s12 red-text" *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
                                 Email is not valid
                             </div>
                         </div>

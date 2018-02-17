@@ -15,13 +15,13 @@ import { trigger,state,style,transition,animate,keyframes, query, stagger } from
 //     ])
 
 export const myAnim = trigger('myAnim', [
-    state('*', style({transform: 'translateX(0)'})),
+    state('*', style({transform: 'translateX(0)', opacity: 1})),
     transition(':enter', [
-      style({transform: 'translateX(-100%)'}),
+      style({transform: 'translateX(-100%)', opacity: 0}),
       animate(500)
     ]),
     transition(':leave', [
-      animate(500, style({transform: 'translateX(100%)'}))
+      animate(500, style({transform: 'translateX(100%)', opacity: 0}))
     ])
   ]);
 

@@ -18,10 +18,6 @@ export class RegisterPageComponent implements OnInit {
     this.registerForm = new FormGroup({
       "email" : new FormControl("", [Validators.required, Validators.pattern("[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}")]),
       "name" : new FormControl("", [Validators.required, Validators.minLength(2)]),
-      // "passwords" : new FormGroup({
-      //   "password" : new FormControl("", [Validators.required, Validators.minLength(6)]),
-      //   "repeat_password" : new FormControl("", [Validators.required, Validators.minLength(6)])
-      // }, {validator: this.passwordConfirming})
       "password" : new FormControl("", [Validators.required, Validators.minLength(6)]),
       "repeat_password" : new FormControl("", [Validators.required, Validators.minLength(6)])
     }, this.passwordMatchValidator);

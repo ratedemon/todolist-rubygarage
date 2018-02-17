@@ -5,7 +5,7 @@ async function checkRegister(ctx, next) {
     const result = Joi.validate(ctx.request.body, schemaRegister);
     console.log(result.error);
     if(result.error){
-        return 400;
+        return ctx.status = 400;
     }
     await next();
 }
@@ -13,7 +13,7 @@ async function checkRegister(ctx, next) {
 async function checkLogin(ctx, next) {
     const result = Joi.validate(ctx.request.body, schemaLogin);
     if(result.error){
-        return 400;
+        return ctx.status = 400;
     }
     await next();
 }
