@@ -1,7 +1,7 @@
 /**
  * Created by rated on 17.02.2018.
  */
-import {schemaCreate, schemeGet, schemeUpdate, schemeDelete} from '../models/project/schema';
+import {schemaCreate, schemeGet, schemeUpdate, schemeDelete} from '../../models/project/schema';
 import Joi from 'joi';
 
 async function checkGetProject(ctx, next) {

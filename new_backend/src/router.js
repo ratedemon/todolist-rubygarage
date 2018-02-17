@@ -9,8 +9,9 @@ import UserController from './controllers/user';
 import ProjectController from './controllers/project';
 import TaskController from './controllers/task';
 import send from 'koa-send';
-import {checkLogin, checkRegister} from './middleware/userValidator';
-import {checkCreateProject, checkGetProject, checkDeleteProject, checkUpdateProject} from './middleware/projectValidator';
+import {checkLogin, checkRegister} from './middleware/validators/user';
+import {checkCreateProject, checkGetProject, checkDeleteProject, checkUpdateProject} from './middleware/validators/project';
+import {checkChangePosition, checkChangeStatus, checkCreateTask, checkDeleteTask, checkUpdateTask} from './middleware/validators/task';
 
 env.config();
 
@@ -35,11 +36,11 @@ router.post('/project', verifyAuth, checkCreateProject, ProjectController.create
 router.put('/project', verifyAuth, checkUpdateProject, ProjectController.update);
 router.delete('/project/:id', verifyAuth, checkDeleteProject, ProjectController.delete);
 
-router.post('/task', verifyAuth, TaskController.create);
-router.put('/task', verifyAuth, TaskController.updateName);
-router.put('/task/status', verifyAuth, TaskController.changeStatus);
-router.put('/task/position', verifyAuth, TaskController.changePosition);
-router.delete('/project/:project_id/task/:task_id', verifyAuth, TaskController.delete);
+router.post('/task', verifyAuth, checkCreateTask, TaskController.create);
+router.put('/task', verifyAuth, checkUpdateTask, TaskController.updateName);
+router.put('/task/status', verifyAuth, checkChangeStatus, TaskController.changeStatus);
+router.put('/task/position', verifyAuth, checkChangePosition, TaskController.changePosition);
+router.delete('/project/:project_id/task/:task_id', verifyAuth, checkDeleteTask, TaskController.delete);
 
 if(!!process.env.DATABASE_URL) {
     router.all('/*', ctx => {

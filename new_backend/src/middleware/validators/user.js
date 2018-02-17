@@ -1,4 +1,4 @@
-import {schemaRegister, schemaLogin} from '../models/user/schema';
+import {schemaRegister, schemaLogin} from '../../models/user/schema';
 import Joi from 'joi';
 
 async function checkRegister(ctx, next) {
