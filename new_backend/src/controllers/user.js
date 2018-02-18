@@ -4,9 +4,10 @@
 import User from '../models/user/model';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
-import nodemailer from 'nodemailer';
+// import nodemailer from 'nodemailer';
 import env from 'dotenv';
 import randomstring from 'randomstring';
+import sendEmail from '../mail';
 
 env.config();
 
@@ -52,7 +53,44 @@ export default class UserController{
             return ctx.status = 500;
         }
     }
+    static async getSecretCode(ctx){
+        const user = await User.findOne({
+            where: {
+                email: ctx.request.body.email
+            }
+        });
+
+        const token = await jwt.sign({
+            id: user.id,
+            email: user.email
+        }, process.env.JWT_KEY, {
+            expiresIn: "3h"
+        });
+        const html = `<p>Hello, <b>${user.name}</b>.</p>
+            <p>Secret code: <b>${token}</b></p>
+            <br><br>
+            <p><small>If you don't want change password, just, ignore this message.</small></p>`;
+
+        try{
+            const transporter = await sendEmail(ctx.request.body.email,'Secret code (forgot password)', html);
+        }catch(e){
+            console.log(e);
+            return ctx.status = 500;
+        }
+
+        return transporter ? ctx.status = 200 : ctx.status = 403;
+    }
     static async forgot(ctx){
+        try{
+            const encode = await jwt.verify(ctx.request.body.secret, process.env.JWT_KEY);
+        }catch(e){
+            console.log(e);
+            return ctx.status = 500;
+        }
+        if(encode.email != ctx.request.body.email){
+            return ctx.status = 500;
+        }
+
         const user = await User.findOne({
             where: {
                 email: ctx.request.body.email
@@ -60,49 +98,19 @@ export default class UserController{
         });
         if(!user) return ctx.status = 404;
         try{
-            if(process.env.NODE_ENV == 'production'){
-                let transporter = nodemailer.createTransport({
-                    host: 'smtp.gmail.com',
-                    port: 465,
-                    secure: true,
-                    auth: {
-                        user: process.env.SMTP_EMAIL,
-                        pass: process.env.SMTP_PASS
-                    },
-                    tls: {
-                        // do not fail on invalid certs
-                        rejectUnauthorized: false
-                    }
-                })
-            }else{
-                let transporter = nodemailer.createTransport({
-                    service: process.env.SMTP_SERVICE,
-                    auth: {
-                        user: process.env.SMTP_EMAIL,
-                        pass: process.env.SMTP_PASS
-                    }
-                });
-            }
-
             const str = randomstring.generate(10);
-            let mailOptions = {
-                from: `"RubyTodo" <${process.env.SMTP_EMAIL}>`,
-                to: ctx.request.body.email,
-                subject: 'Forgot password',
-                text: 'Hello world?',
-                html: `<p>Hello, <b>${user.dataValues.name}</b>!</p>
-<p>Your password has been change to <b>${str}</b> .</p>
-<br>
-<p>Thank you. Have a good day:)</p>
-`
-            };
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.log(error);
-                    return ctx.status = 500;
-                }
-                console.log('Message sent: %s', info.messageId);
-            });
+
+            const html = `<p>Hello, <b>${user.dataValues.name}</b>!</p>
+                <p>Your password has been change to <b>${str}</b> .</p>
+                <br>
+                <p>Thank you. Have a good day:)</p>
+                `;
+
+            const transporter = await sendEmail(ctx.request.body.email,'Forgot password', html);
+
+            if(!transporter){
+                return ctx.status = 500;
+            }
 
             const hash = await bcrypt.hash(str, 10);
             console.log(str);

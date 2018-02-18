@@ -30,6 +30,12 @@ export class AuthService {
       let headers = new Headers();
       this.createHeaders(headers);
       let body = JSON.stringify({email: email});
+      return this.http.post(`${this.url}/secret-code`, body, {headers: headers});
+  }
+  forgotCode(email:string, secret:string){
+      let headers = new Headers();
+      this.createHeaders(headers);
+      let body = JSON.stringify({email: email, secret: secret});
       return this.http.post(`${this.url}/forgot`, body, {headers: headers});
   }
   updatePassword(old_password:string, new_password: string){

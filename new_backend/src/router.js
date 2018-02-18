@@ -29,6 +29,7 @@ if(!!process.env.DATABASE_URL){
 router.post('/register', checkRegister, UserController.register);
 router.post('/login', checkLogin, UserController.login);
 router.post('/forgot', UserController.forgot);
+router.post('/secret-code', UserController.getSecretCode);
 router.put('/change-password', verifyAuth, UserController.changePassword);
 
 router.get('/projects', verifyAuth, checkGetProject, ProjectController.getProjectsWithTasks);
