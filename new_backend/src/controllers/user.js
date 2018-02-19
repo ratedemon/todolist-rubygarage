@@ -45,7 +45,7 @@ export default class UserController{
                 email: ctx.request.body.email,
                 password: hash
             });
-            console.log(user);
+            // console.log(user);
 
             return ctx.status = 200;
         } catch (e) {

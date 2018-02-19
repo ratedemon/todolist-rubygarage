@@ -14,6 +14,8 @@ app.use(routes());
 
 app.use(allowedMethods());
 
-app.use(logger('tiny')).listen(process.env.PORT, ()=>{
+const server = app.use(logger('tiny')).listen(process.env.PORT, ()=>{
   console.log(`Listening on port ${process.env.PORT}...`);
 });
+
+export default server;
