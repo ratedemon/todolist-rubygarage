@@ -32,7 +32,7 @@ router.post('/forgot', UserController.forgot);
 router.post('/secret-code', UserController.getSecretCode);
 router.put('/change-password', verifyAuth, UserController.changePassword);
 
-router.get('/projects', verifyAuth, checkGetProject, ProjectController.getProjectsWithTasks);
+router.get('/user-projects', verifyAuth, checkGetProject, ProjectController.getProjectsWithTasks);
 router.post('/project', verifyAuth, checkCreateProject, ProjectController.create);
 router.put('/project', verifyAuth, checkUpdateProject, ProjectController.update);
 router.delete('/project/:id', verifyAuth, checkDeleteProject, ProjectController.delete);

@@ -20,7 +20,7 @@ export class NewDataService {
     this.token = token;
   }
   getProjects(){
-    this.http.get(`${this.url}/projects`, {headers:this.createAuthorizationHeader()}).map(this.parseData).subscribe(res=>{
+    this.http.get(`${this.url}/user-projects`, {headers:this.createAuthorizationHeader()}).map(this.parseData).subscribe(res=>{
       this.projects.next(res);
     }, err=>{
       localStorage.clear();

@@ -7,14 +7,12 @@ import db from '../db';
 
 export default class ProjectController{
     static async create(ctx){
-        console.log(ctx.request.body);
         try{
             let project = await Project.create({
                 name: ctx.request.body.name,
                 user_id: ctx.request.body.id
             });
             project.dataValues.ProjectTasks = [];
-            console.log(project);
             return ctx.body = {project: project};
         }catch(e){
             console.log(e);
@@ -22,7 +20,6 @@ export default class ProjectController{
         }
     }
     static async update(ctx){
-        console.log(ctx.request.body);
         try{
             const project = await Project.update({
                 name: ctx.request.body.name
@@ -38,7 +35,6 @@ export default class ProjectController{
         }
     }
     static async delete(ctx){
-        console.log(ctx.params.id);
         try{
             const project = await Project.destroy({
                 where: {

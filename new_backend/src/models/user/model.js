@@ -1,8 +1,8 @@
 //import Joi from 'joi';
 //import schema from './schema';
 import Sequelize from 'sequelize';
-
 import db from '../../db.js';
+import Project from '../project/model';
 
 const User = db.define('users', {
   id: {
@@ -21,5 +21,7 @@ const User = db.define('users', {
   },
   password: Sequelize.STRING(80)
 });
+
+User.hasMany(Project, {foreignKey: 'user_id', onDelete: 'cascade'});
 
 export default User;
