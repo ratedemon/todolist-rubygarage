@@ -29,7 +29,6 @@ async function checkCreateTask(ctx, next) {
 }
 
 async function checkUpdateTask(ctx, next) {
-    console.log(ctx.request.body);
     const result = Joi.validate(ctx.request.body, schemeUpdate);
     if(result.error){
         return ctx.status = 400;
@@ -38,7 +37,6 @@ async function checkUpdateTask(ctx, next) {
 }
 
 async function checkDeleteTask(ctx, next) {
-    console.log(ctx.request.body, ctx.params);
     const result = Joi.validate({
         email: ctx.request.body.email,
         id: ctx.request.body.id,

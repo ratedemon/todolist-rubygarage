@@ -150,5 +150,40 @@ describe('Task', ()=>{
                 done();
             });
         });
+
+        it('it should toggle task status', (done)=>{
+            const task = {
+                status: true,
+                project_id: project_id,
+                task_id: task_id
+            };
+            chai.request(server).put('/task/status').set('Authorization', `Bearer ${token}`).send(task).end((err, res)=>{
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                done();
+            })
+        });
+
+        it('it should change task position', (done)=>{
+            const task = {
+                position: 2,
+                project_id: project_id,
+                task_id: task_id
+            };
+            chai.request(server).put('/task/position').set('Authorization', `Bearer ${token}`).send(task).end((err, res)=>{
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                done();
+            })
+        });
+    });
+
+    describe('/DELETE task', () => {
+        it('it should delete the task', (done)=>{
+            chai.request(server).del(`/project/${project_id}/task/${task_id}`).set('Authorization', `Bearer ${token}`).end((err, res)=>{
+                res.should.have.status(200);
+                done();
+            });
+        })
     });
 });
