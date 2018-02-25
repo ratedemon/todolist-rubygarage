@@ -61,13 +61,10 @@ export default class ProjectController{
             ],
             order: [
                 ['id', 'ASC'],
-                // [db.models.Project,{ model: db.models.Task, as: 'ProjectTasks' }, 'position', 'asc'],
-                // [ db.Task, 'position', 'ASC']
                 [ db.literal('"ProjectTasks".'), 'position', 'ASC'],
                 [ db.literal('"ProjectTasks".'), 'id', 'ASC']
             ]
         });
-        // console.log(projects);
         ctx.body = projects;
     }
 }

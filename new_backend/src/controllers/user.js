@@ -4,9 +4,7 @@
 import User from '../models/user/model';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
-// import nodemailer from 'nodemailer';
 import env from 'dotenv';
-import randomstring from 'randomstring';
 import sendEmail from '../mail';
 
 env.config();
@@ -45,8 +43,6 @@ export default class UserController{
                 email: ctx.request.body.email,
                 password: hash
             });
-            // console.log(user);
-
             return ctx.status = 200;
         } catch (e) {
             console.log(e);

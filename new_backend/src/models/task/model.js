@@ -1,5 +1,3 @@
-//import Joi from 'joi';
-//import schema from './schema';
 import Sequelize from 'sequelize';
 import db from '../../db.js';
 import Project from '../project/model';

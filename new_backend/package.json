@@ -30,7 +30,6 @@
     "nodemailer": "^4.4.2",
     "pg": "^6.4.2",
     "pg-hstore": "^2.3.2",
-    "randomstring": "^1.1.5",
     "sequelize": "^4.31.2",
     "babel-core": "^6.26.0",
     "babel-preset-latest": "^6.24.1",

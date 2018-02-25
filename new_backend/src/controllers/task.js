@@ -71,7 +71,6 @@ export default class TaskController {
                     }
                 })
             }));
-            // console.log(result);
             let error = false;
             results.forEach(el => {
                  if(!el[0]){
