@@ -7,7 +7,7 @@ const schemeDefault = {
 };
 
 const schemaCreate = Joi.object().keys(
-    Object.assign({}, schemeDefault, {name: Joi.string().required().min(1)})
+    Object.assign({}, schemeDefault, {name: Joi.string().required().min(1), position: Joi.number().integer().required()})
 );
 
 const schemeUpdate = Joi.object().keys(

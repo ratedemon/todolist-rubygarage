@@ -9,6 +9,7 @@ export default class TaskController {
         try {
             const task = await Task.create({
                 name: ctx.request.body.name,
+                position: ctx.request.body.position,
                 project_id: db.literal(await TaskController.verifyString(ctx))
             });
             ctx.body = task;

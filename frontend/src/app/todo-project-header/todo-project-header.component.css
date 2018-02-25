@@ -5,6 +5,7 @@
   align-items: center;
   padding: .2em .3em;
   color: white;
+  background: #3b60a0;
   transition: all .4s ease;
 }
 .head__input{
@@ -26,9 +27,17 @@
   width: 3%;
   text-align: center;
   user-select: none;
+  opacity: .5;
+  transition: all .4s ease;
+}
+.material-icons:hover{
+  opacity: 1;
 }
 .material-icons:first-child{
   width: 4%;
+  color: #29374b;
+  font-size: 30px;
+  opacity: 1;
 }
 @media only screen and (max-width: 600px) {
   .material-icons{

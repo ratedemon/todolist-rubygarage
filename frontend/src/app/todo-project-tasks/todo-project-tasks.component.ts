@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {NewDataService} from '../shared/new-data.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-todo-project-tasks',
@@ -9,20 +10,21 @@ import {NewDataService} from '../shared/new-data.service';
 export class TodoProjectTasksComponent implements OnInit {
   @Input() project;
   @Input() projects;
-  constructor(private newDataService: NewDataService) { }
+  constructor(private newDataService: NewDataService, private router: Router) { }
 
   ngOnInit() {
   }
 
   transferDataSuccess(e){
-    // console.log(e);
     const sort_tasks = [];
     this.project.ProjectTasks.forEach((el, i)=>{
       sort_tasks.push({id: el.id, position: i});
     });
-    // console.log(sort_tasks);
     this.newDataService.changePosition(sort_tasks, this.project.id).subscribe(res=>{
       console.log(res);
-    }, err=>console.log(err));
+    }, err=>{
+      alert(err.message);
+      this.router.navigate(['/projects']);
+    });
   }
 }

@@ -21,8 +21,8 @@ const Task = db.define('tasks', {
     },
     position: {
         type: Sequelize.INTEGER,
-        allowNull: true,
-        defaultValue: null
+        notNull: true,
+        defaultValue: 0
     },
     project_id: {
         type: Sequelize.INTEGER,

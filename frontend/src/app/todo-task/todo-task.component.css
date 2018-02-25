@@ -1,3 +1,14 @@
+:host{
+  display: flex;
+  transition: all .4s ease;
+  background: transparent;
+}
+:host:hover{
+  background: #fcfed5;
+}
+:host:hover .task__interaction > *{
+  opacity: 1;
+}
 :host .checkbox{
   font-size: 1.2em;
   align-self: center;
@@ -18,14 +29,15 @@
   font-size: 1.2em;
   margin: 0.15em .25em .15em .05em!important;
   padding: .15em 0 .15em .2em;
-  /*height: 2em!important;*/
   resize: vertical;
   height: 1.35em;
-  min-height: 0;
+  min-height: 1.3rem;
   line-height: normal;
-  /*border-left: 1px solid pink;*/
   color: #26a69a;
   transition: all .35s ease;
+}
+.task__title:disabled{
+  border: none;
 }
 .task__title:hover, .task__title:focus{
   outline: none;
@@ -52,6 +64,8 @@
   width: calc(100%/3);
   text-align: center;
   cursor: pointer;
+  opacity: 0;
+  transition: all .4s ease;
 }
 .task__interaction > *:hover{
   color: gray;

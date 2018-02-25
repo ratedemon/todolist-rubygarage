@@ -9,7 +9,7 @@ import UserController from './controllers/user';
 import ProjectController from './controllers/project';
 import TaskController from './controllers/task';
 import send from 'koa-send';
-import {checkLogin, checkRegister} from './middleware/validators/user';
+import {checkLogin, checkRegister, checkSecretCode, checkForgot} from './middleware/validators/user';
 import {checkCreateProject, checkGetProject, checkDeleteProject, checkUpdateProject} from './middleware/validators/project';
 import {checkChangePosition, checkChangeStatus, checkCreateTask, checkDeleteTask, checkUpdateTask} from './middleware/validators/task';
 
@@ -28,8 +28,8 @@ if(!!process.env.DATABASE_URL){
 
 router.post('/register', checkRegister, UserController.register);
 router.post('/login', checkLogin, UserController.login);
-router.post('/forgot', UserController.forgot);
-router.post('/secret-code', UserController.getSecretCode);
+router.post('/forgot', checkForgot, UserController.forgot);
+router.post('/secret-code', checkSecretCode, UserController.getSecretCode);
 router.put('/change-password', verifyAuth, UserController.changePassword);
 
 router.get('/user-projects', verifyAuth, checkGetProject, ProjectController.getProjectsWithTasks);

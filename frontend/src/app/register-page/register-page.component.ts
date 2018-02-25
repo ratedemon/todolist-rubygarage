@@ -31,9 +31,6 @@ export class RegisterPageComponent implements OnInit {
   }
 
   loginForm(){
-    console.log(this.registerForm);
-    // return;
-    // this.isSending = true;
     this.authService.register(this.registerForm.value.name, this.registerForm.value.email, this.registerForm.value.password).subscribe(res => {
       this.isSending = false;
       this.registerForm.reset();
@@ -47,7 +44,6 @@ export class RegisterPageComponent implements OnInit {
       this.isSending = false;
       this.message = "This email has been registered";
       this.status = 2;
-      console.log(err);
     });
   }
 }

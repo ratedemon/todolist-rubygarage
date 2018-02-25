@@ -82,15 +82,15 @@ export default class UserController{
     static async forgot(ctx){
         try{
             const encoded_json = Buffer.from(ctx.request.body.secret, 'base64').toString();
-            console.log(encoded_json);
-            const encode = await jwt.verify(encoded_json, process.env.JWT_KEY)
+            const verified = await jwt.verify(encoded_json, process.env.JWT_KEY);
+            if(verified.email != ctx.request.body.email){
+                throw new Error('Not valid');
+            }
         }catch(e){
             console.log(e);
             return ctx.status = 500;
         }
-        if(encode.email != ctx.request.body.email){
-            return ctx.status = 500;
-        }
+
 
         const user = await User.findOne({
             where: {
@@ -99,7 +99,14 @@ export default class UserController{
         });
         if(!user) return ctx.status = 404;
         try{
-            const str = randomstring.generate(10);
+            const hash = await bcrypt.hash(ctx.request.body.password, 10);
+            const updateUser = await User.update({
+                password: hash
+            },{
+                where: {
+                    email: ctx.request.body.email
+                }
+            });
 
             const html = `<p>Hello, <b>${user.dataValues.name}</b>!</p>
                 <p>Your password has been changed.</p>
@@ -112,17 +119,7 @@ export default class UserController{
             if(!transporter){
                 return ctx.status = 500;
             }
-
-            const hash = await bcrypt.hash(str, 10);
-            console.log(str);
-            const updateUser = await User.update({
-                password: hash
-            },{
-                where: {
-                    email: ctx.request.body.email
-                }
-            });
-            ctx.status = 200;
+            return ctx.status = 200;
         }catch(err){
             console.log(err);
             ctx.status = 500;

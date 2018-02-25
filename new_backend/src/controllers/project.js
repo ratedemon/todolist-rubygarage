@@ -60,7 +60,7 @@ export default class ProjectController{
                 }
             ],
             order: [
-                ['id', 'DESC'],
+                ['id', 'ASC'],
                 // [db.models.Project,{ model: db.models.Task, as: 'ProjectTasks' }, 'position', 'asc'],
                 // [ db.Task, 'position', 'ASC']
                 [ db.literal('"ProjectTasks".'), 'position', 'ASC'],

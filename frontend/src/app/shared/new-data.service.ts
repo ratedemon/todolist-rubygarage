@@ -38,8 +38,8 @@ export class NewDataService {
   deleteProject(project_id: number){
     return this.http.delete(`${this.url}/project/${project_id}`, {headers: this.createAuthorizationHeader()});
   }
-  addTask(name: string, project_id: number){
-    let body = JSON.stringify({name: name, project_id: project_id});
+  addTask(name: string, project_id: number, position: number){
+    let body = JSON.stringify({name: name, project_id: project_id, position: position});
     return this.http.post(`${this.url}/task`, body, {headers: this.createAuthorizationHeader()}).map(this.parseData);
   }
   toggleTask(project, task){
