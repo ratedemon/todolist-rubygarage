@@ -23,7 +23,11 @@ const schemeChangeStatus = Joi.object().keys(
 );
 
 const schemeChangePosition = Joi.object().keys(
-    Object.assign({}, schemeDefault, {task_id: Joi.number().integer().required(), position: Joi.number().integer().required()})
+    // Object.assign({}, schemeDefault, {task_id: Joi.number().integer().required(), position: Joi.number().integer().required()})
+    Object.assign({}, schemeDefault, {tasks: Joi.array().items(Joi.object().keys({
+        id: Joi.number().integer().required(),
+        position: Joi.number().integer().required()
+    }))})
 );
 
 export {schemaCreate, schemeUpdate, schemeDelete, schemeChangeStatus, schemeChangePosition};

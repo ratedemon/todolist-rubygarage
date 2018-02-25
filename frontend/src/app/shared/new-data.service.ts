@@ -54,13 +54,14 @@ export class NewDataService {
     return this.http.put(`${this.url}/task`, body, {headers: this.createAuthorizationHeader()});
   }
   changePosition(tasks, project_id){
-    let formData = new FormData();
-    tasks.forEach((el, i)=>{
-      formData.append(`task[${i}][id]`, el.id);
-      formData.append(`task[${i}][position]`, el.position);
-    });
-    formData.append('project_id', project_id);
-    return this.http.put(`${this.url}/task/position`, formData);
+    // let formData = new FormData();
+    // tasks.forEach((el, i)=>{
+    //   formData.append(`task[${i}][id]`, el.id);
+    //   formData.append(`task[${i}][position]`, el.position);
+    // });
+    // formData.append('project_id', project_id);
+    let body = JSON.stringify({tasks: tasks, project_id: project_id});
+    return this.http.put(`${this.url}/task/position`, body, {headers: this.createAuthorizationHeader()});
   }
   private createAuthorizationHeader(){
     let headers = new Headers();

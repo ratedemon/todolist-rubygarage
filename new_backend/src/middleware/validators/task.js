@@ -13,6 +13,7 @@ async function checkChangeStatus(ctx, next) {
 }
 
 async function checkChangePosition(ctx, next) {
+    console.log(ctx.request.body);
     const result = Joi.validate(ctx.request.body, schemeChangePosition);
     if(result.error){
         return ctx.status = 400;

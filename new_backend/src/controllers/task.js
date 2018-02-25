@@ -4,24 +4,25 @@
 import Task from '../models/task/model';
 import db from '../db';
 
-export default class TaskController{
-    static async create(ctx){
-        try{
+export default class TaskController {
+    static async create(ctx) {
+        try {
             const task = await Task.create({
                 name: ctx.request.body.name,
                 project_id: db.literal(await TaskController.verifyString(ctx))
             });
             ctx.body = task;
-        }catch(e){
+        } catch (e) {
             console.log(e);
             ctx.throw(400);
         }
     }
-    static async updateName(ctx){
-        try{
+
+    static async updateName(ctx) {
+        try {
             const task = await Task.update({
                 name: ctx.request.body.name,
-            },{
+            }, {
                 where: {
                     id: ctx.request.body.task_id,
                     project_id: {
@@ -30,13 +31,14 @@ export default class TaskController{
                 }
             });
             ctx.body = task;
-        }catch(e){
+        } catch (e) {
             console.log(e);
             ctx.throw(400);
         }
     }
-    static async delete(ctx){
-        try{
+
+    static async delete(ctx) {
+        try {
             const task = await Task.destroy({
                 where: {
                     id: ctx.params.task_id,
@@ -46,37 +48,50 @@ export default class TaskController{
                 }
             });
             return ctx.body = task;
-        }catch(e){
+        } catch (e) {
             console.log(e);
             ctx.throw(400);
         }
     }
-    static async changePosition(ctx){
+
+    static async changePosition(ctx) {
+        const tasks = ctx.request.body.tasks;
+        const project_id = await TaskController.verifyString(ctx);
         try{
-            const task = await Task.update({
-                    position: ctx.request.body.position,
-                },
-                {
+            const results = await Promise.all(tasks.map(task => {
+                return Task.update({
+                    position: task.position
+                }, {
                     where: {
-                        id: ctx.request.body.task_id,
+                        id: task.id,
                         project_id: {
-                            [db.Op.eq]: db.literal(await TaskController.verifyString(ctx))
+                            [db.Op.eq]: db.literal(project_id)
                         }
                     }
-                }
-            );
-            if(task[0]){
-                return ctx.body = task;
+                })
+            }));
+            // console.log(result);
+            let error = false;
+            results.forEach(el => {
+                 if(!el[0]){
+                     error = true;
+                 }
+            });
+            if(error){
+                throw new Error("Not all tasks was updated.");
             }else{
-                return ctx.throw(403);
+                ctx.status = 200
             }
         }catch(e){
             console.log(e);
-            ctx.throw(400);
+            ctx.throw(400, {
+                message: e
+            });
         }
     }
-    static async changeStatus(ctx){
-        try{
+
+    static async changeStatus(ctx) {
+        try {
             const task = await Task.update({
                     status: ctx.request.body.status,
                 },
@@ -89,17 +104,18 @@ export default class TaskController{
                     }
                 }
             );
-            if(task[0]){
+            if (task[0]) {
                 return ctx.body = task;
-            }else{
+            } else {
                 return ctx.throw(403);
             }
-        }catch(e){
+        } catch (e) {
             console.log(e);
             ctx.throw(400);
         }
     }
-    static async verifyString(ctx){
+
+    static async verifyString(ctx) {
         return `(SELECT id from projects where id=${ctx.request.body.project_id || ctx.params.project_id} and user_id in (SELECT id from users where id=${ctx.request.body.id} and email = '${ctx.request.body.email}'))`;
     }
 }
