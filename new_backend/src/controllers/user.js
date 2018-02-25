@@ -59,7 +59,6 @@ export default class UserController{
                 email: ctx.request.body.email
             }
         });
-        console.log(user);
         const token = await jwt.sign({
             id: user.id,
             email: user.email

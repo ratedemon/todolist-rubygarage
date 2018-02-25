@@ -54,6 +54,18 @@ describe('User', () => {
             });
         });
     });
+
+    describe('/POST secret code', () => {
+        it('it should send secret code on email', (done) => {
+            const user = {
+                email: "test@test.com"
+            };
+            chai.request(server).post('/secret-code').send(user).end((err, res) => {
+                res.should.have.status(200);
+                done();
+            });
+        });
+    });
 });
 
 describe('Project', () => {
@@ -126,7 +138,8 @@ describe('Task', ()=>{
         it('it should create a task', (done) => {
             const task = {
                 name: 'Test Task 1',
-                project_id: project_id
+                project_id: project_id,
+                position: 1
             };
             chai.request(server).post('/task').set('Authorization', `Bearer ${token}`).send(task).end((err, res) => {
                 res.should.have.status(200);
@@ -166,13 +179,13 @@ describe('Task', ()=>{
 
         it('it should change task position', (done)=>{
             const task = {
-                position: 2,
-                project_id: project_id,
-                task_id: task_id
+                tasks: [
+                    {id: task_id, position: 2}
+                ],
+                project_id: project_id
             };
             chai.request(server).put('/task/position').set('Authorization', `Bearer ${token}`).send(task).end((err, res)=>{
                 res.should.have.status(200);
-                res.body.should.be.a('array');
                 done();
             })
         });
