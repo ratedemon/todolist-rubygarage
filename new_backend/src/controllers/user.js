@@ -59,7 +59,7 @@ export default class UserController{
                 email: ctx.request.body.email
             }
         });
-
+        console.log(user);
         const token = await jwt.sign({
             id: user.id,
             email: user.email
@@ -67,22 +67,23 @@ export default class UserController{
             expiresIn: "3h"
         });
         const html = `<p>Hello, <b>${user.name}</b>.</p>
-            <p>Secret code: <b>${token}</b></p>
+            <p>Secret code: <b>${Buffer.from(token).toString('base64')}</b></p>
             <br><br>
             <p><small>If you don't want change password, just, ignore this message.</small></p>`;
 
         try{
             const transporter = await sendEmail(ctx.request.body.email,'Secret code (forgot password)', html);
+            return transporter ? ctx.status = 200 : ctx.status = 403;
         }catch(e){
             console.log(e);
             return ctx.status = 500;
         }
-
-        return transporter ? ctx.status = 200 : ctx.status = 403;
     }
     static async forgot(ctx){
         try{
-            const encode = await jwt.verify(ctx.request.body.secret, process.env.JWT_KEY);
+            const encoded_json = Buffer.from(ctx.request.body.secret, 'base64').toString();
+            console.log(encoded_json);
+            const encode = await jwt.verify(encoded_json, process.env.JWT_KEY)
         }catch(e){
             console.log(e);
             return ctx.status = 500;
@@ -101,7 +102,7 @@ export default class UserController{
             const str = randomstring.generate(10);
 
             const html = `<p>Hello, <b>${user.dataValues.name}</b>!</p>
-                <p>Your password has been change to <b>${str}</b> .</p>
+                <p>Your password has been changed.</p>
                 <br>
                 <p>Thank you. Have a good day:)</p>
                 `;

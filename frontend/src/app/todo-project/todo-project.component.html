@@ -2,11 +2,7 @@
   <li class="main__list card" *ngFor="let item of projects; let i= index">
     <todo-project-header [item]="item" [projects]="projects"></todo-project-header>
     <todo-projects-form [item]="item" [projects]="projects"></todo-projects-form>
-    <ul class="list__todos collection">
-      <li class="todos__task collection-item" *ngFor="let task of item.ProjectTasks">
-        <todo-task [item]="item" [task]="task" [projects]="projects"></todo-task>
-      </li>
-    </ul>
+    <app-todo-project-tasks [project]="item" [projects]="projects"></app-todo-project-tasks>
   </li>
   <li class="main__list zero" *ngIf="projects?.length < 1">
     Задач нет, придумайте их!

@@ -53,6 +53,15 @@ export class NewDataService {
     let body = JSON.stringify({name: name, task_id: task.id, project_id: project.id});
     return this.http.put(`${this.url}/task`, body, {headers: this.createAuthorizationHeader()});
   }
+  changePosition(tasks, project_id){
+    let formData = new FormData();
+    tasks.forEach((el, i)=>{
+      formData.append(`task[${i}][id]`, el.id);
+      formData.append(`task[${i}][position]`, el.position);
+    });
+    formData.append('project_id', project_id);
+    return this.http.put(`${this.url}/task/position`, formData);
+  }
   private createAuthorizationHeader(){
     let headers = new Headers();
     headers.append("Content-Type", "application/json" );

@@ -9,6 +9,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import { ReactiveFormsModule }   from '@angular/forms';
 
+import {DndModule} from 'ng2-dnd';
+
 import { AppComponent } from './app.component';
 import { AuthService } from './shared/auth.service';
 import { NewDataService } from './shared/new-data.service';
@@ -26,6 +28,7 @@ import { TodoProjectHeaderComponent } from './todo-project-header/todo-project-h
 import {createTranslateLoader} from './shared/translateLoader';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { UserComponent } from './user/user.component';
+import { TodoProjectTasksComponent } from './todo-project-tasks/todo-project-tasks.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { UserComponent } from './user/user.component';
     TodoTaskComponent,
     TodoProjectHeaderComponent,
     ForgetPasswordComponent,
-    UserComponent
+    UserComponent,
+    TodoProjectTasksComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(appRouter),ReactiveFormsModule, FormsModule, HttpModule, BrowserAnimationsModule, TranslateModule.forRoot({
@@ -48,7 +52,7 @@ import { UserComponent } from './user/user.component';
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    }), HttpClientModule
+    }), HttpClientModule, DndModule.forRoot()
   ],
   exports:[
     TranslateModule

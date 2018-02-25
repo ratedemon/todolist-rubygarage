@@ -1,0 +1,5 @@
+<ul class="list__todos collection" dnd-sortable-container [sortableData]="project.ProjectTasks">
+  <li class="todos__task collection-item" *ngFor="let task of project.ProjectTasks; let i = index" dnd-sortable [sortableIndex]="i"  (onDropSuccess)="transferDataSuccess($event)">
+    <todo-task [item]="project" [task]="task" [projects]="projects"></todo-task>
+  </li>
+</ul>

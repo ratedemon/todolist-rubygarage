@@ -63,6 +63,7 @@ export default class ProjectController{
                 ['id', 'DESC'],
                 // [db.models.Project,{ model: db.models.Task, as: 'ProjectTasks' }, 'position', 'asc'],
                 // [ db.Task, 'position', 'ASC']
+                [ db.literal('"ProjectTasks".'), 'position', 'ASC'],
                 [ db.literal('"ProjectTasks".'), 'id', 'ASC']
             ]
         });

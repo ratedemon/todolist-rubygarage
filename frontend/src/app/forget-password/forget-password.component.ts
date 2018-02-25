@@ -8,6 +8,8 @@ import {AuthService} from '../shared/auth.service';
 export class ForgetPasswordComponent implements OnInit {
   email: string = "";
   secret: string = "";
+  new_password: string = "";
+  confirm_password: string = "";
   errorMessage:string = "";
   successMessage:string = "";
   status: boolean = false;
@@ -23,6 +25,9 @@ export class ForgetPasswordComponent implements OnInit {
       this.authService.forgotPassword(email).subscribe(res=>{
         console.log(res);
         this.successMessage = "Good, check you email now, there will be a secret code!";
+        if(!this.status){
+          this.status = true;
+        }
       }, err=>{
         this.errorMessage = "Error! Something went wrong...";
       });
@@ -33,9 +38,6 @@ export class ForgetPasswordComponent implements OnInit {
       }, err=>{
         this.errorMessage = "Error! Something went wrong...";
       });
-    }
-    if(!this.status){
-      this.status = true;
     }
   }
 }
