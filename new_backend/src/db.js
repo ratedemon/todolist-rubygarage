@@ -12,7 +12,8 @@ const db = new Sequelize(dbString, {
 });
 
 if(!!process.env.DATABASE_URL){
-    db.sync({force:true})
+    // db.sync({force:true})
+    db.sync()
       .then(() => {
         console.log('DB synced');
       });
